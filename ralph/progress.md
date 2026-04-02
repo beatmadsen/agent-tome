@@ -46,7 +46,7 @@
 
 ## 4. `agent-tome search`
 - [x] 4.1 Search with default match mode (any)
-- [ ] 4.2 Search with --match all
+- [x] 4.2 Search with --match all
 - [ ] 4.3 Search with --match any (explicit)
 - [ ] 4.4 Search results ordered by matching keyword count descending
 - [ ] 4.5 Search keywords are normalised before matching
