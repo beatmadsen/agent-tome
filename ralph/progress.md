@@ -13,7 +13,7 @@
 - [x] 2.1 Minimal article creation
 - [x] 2.2 Article with all optional fields
 - [x] 2.3 Keywords are singularised and downcased
-- [ ] 2.4 Keyword deduplication across articles
+- [x] 2.4 Keyword deduplication across articles
 - [ ] 2.5 Web source deduplication by normalised URL
 - [ ] 2.6 Web source URL normalisation preserves non-tracking query params
 - [ ] 2.7 File source deduplication by path and system_name
