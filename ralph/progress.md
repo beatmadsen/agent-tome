@@ -81,7 +81,7 @@
 - [x] 7.3 Related via ArticleReference (references_to)
 - [x] 7.3b Related via ArticleReference (referenced_by)
 - [x] 7.4 Related via ConsolidationLink (consolidated_from)
-- [ ] 7.5 Related via ConsolidationLink (consolidated_into)
+- [x] 7.5 Related via ConsolidationLink (consolidated_into)
 - [ ] 7.6 Article appears in multiple relation arrays
 - [ ] 7.7 Empty results
 - [ ] 7.8 Shared keywords capped at 100
