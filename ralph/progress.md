@@ -127,4 +127,4 @@
 - [x] 13.2 Create, consolidate, fetch lifecycle
 - [x] 13.3 Source deduplication across articles
 - [x] 13.4 Keyword vocabulary discovery
-- [ ] 13.5 Cross-referencing articles (directional clarity)
+- [x] 13.5 Cross-referencing articles (directional clarity)
