@@ -84,7 +84,7 @@
 - [x] 7.5 Related via ConsolidationLink (consolidated_into)
 - [x] 7.6 Article appears in multiple relation arrays
 - [x] 7.7 Empty results
-- [ ] 7.8 Shared keywords capped at 100
+- [x] 7.8 Shared keywords capped at 100
 - [ ] 7.9 Related for non-existent article
 
 ## 8. `agent-tome keywords`
