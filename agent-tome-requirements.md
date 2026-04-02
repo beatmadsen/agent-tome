@@ -271,7 +271,8 @@ The purpose of the ID swap is continuity: any agent or skill that has cached the
 2. The original article is assigned a new global ID.
 3. A ConsolidationLink is created from the new article to the old article.
 4. All keywords from the original article are copied to the new article.
-5. All ArticleReferences involving the original article are **not** migrated — they remain pointing at the original (now re-IDed) article. The consolidation link provides the connection.
+5. All sources (web and file) from the original article's entries are copied to the new article's consolidated entry. This preserves provenance — the consolidated content is derived from the same information.
+6. All ArticleReferences involving the original article are **not** migrated — they remain pointing at the original (now re-IDed) article. The consolidation link provides the connection.
 
 **Input** (JSON via stdin):
 

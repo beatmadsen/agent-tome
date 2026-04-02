@@ -338,6 +338,11 @@ And in the database:
 **When** `agent-tome consolidate <X's global_id>` is called
 **Then** the new article has the same keywords `["ruby", "gc", "performance"]` linked via `article_keywords`.
 
+### 6.2b Consolidation copies sources to consolidated entry
+**Given** article X has two entries: entry 1 with web source `https://example.com/a` and file source `(/docs/a.pdf, laptop)`, entry 2 with web source `https://example.com/b`
+**When** `agent-tome consolidate <X's global_id>` is called
+**Then** the new article's consolidated entry has all three sources attached: both web sources and the file source. The sources are the same records (reused, not duplicated).
+
 ### 6.3 Consolidation does not migrate ArticleReferences
 **Given** article X has an ArticleReference to article Y
 **When** `agent-tome consolidate <X's global_id>` is called

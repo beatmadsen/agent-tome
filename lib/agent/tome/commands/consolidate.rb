@@ -30,11 +30,21 @@ module Agent
             )
 
             # Create the first (and only) entry for the consolidated article
-            Entry.create!(
+            new_entry = Entry.create!(
               article: new_article,
               body: input["body"],
               created_at: Time.now
             )
+
+            # Copy all sources from old article's entries to the consolidated entry
+            article.entries.each do |old_entry|
+              old_entry.web_sources.each do |ws|
+                EntryWebSource.find_or_create_by!(entry: new_entry, web_source: ws)
+              end
+              old_entry.file_sources.each do |fs|
+                EntryFileSource.find_or_create_by!(entry: new_entry, file_source: fs)
+              end
+            end
 
             # Copy keywords from old article to new article
             article.keywords.each do |keyword|
