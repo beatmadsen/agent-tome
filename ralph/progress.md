@@ -57,7 +57,7 @@
 
 ## 5. `agent-tome fetch`
 - [x] 5.1 Fetch a simple article
-- [ ] 5.2 Fetch article with multiple entries
+- [x] 5.2 Fetch article with multiple entries
 - [ ] 5.3 Fetch article with sources on entries
 - [ ] 5.4 Fetch consolidated article includes consolidated_from
 - [ ] 5.5 Fetch non-existent article
