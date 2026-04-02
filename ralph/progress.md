@@ -38,7 +38,7 @@
 - [x] 3.2 Add keywords via addendum
 - [x] 3.3 Metadata-only addendum (no body, just sources)
 - [x] 3.4 Addendum with all fields
-- [ ] 3.5 Empty addendum is rejected
+- [x] 3.5 Empty addendum is rejected
 - [ ] 3.6 Addendum with only empty body is rejected
 - [ ] 3.7 Addendum to non-existent article is rejected
 - [ ] 3.8 Duplicate keyword on addendum is idempotent
