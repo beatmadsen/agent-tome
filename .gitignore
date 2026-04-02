@@ -1,0 +1,16 @@
+*.gem
+pkg/
+Gemfile.lock
+
+doc/
+.yardoc/
+
+coverage/
+spec/reports/
+
+*.sqlite3
+*.db
+
+tmp/
+.bundle/
+vendor/bundle/
