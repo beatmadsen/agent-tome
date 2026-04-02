@@ -98,7 +98,7 @@
 - [x] 9.2 URL is normalised before matching
 - [x] 9.3 Search by file path (any system)
 - [x] 9.4 Search by file path with --system flag
-- [ ] 9.5 No matching source
+- [x] 9.5 No matching source
 - [ ] 9.6 Output format
 - [ ] 9.7 URL vs file path disambiguation
 
