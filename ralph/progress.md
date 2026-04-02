@@ -16,7 +16,7 @@
 - [x] 2.4 Keyword deduplication across articles
 - [x] 2.5 Web source deduplication by normalised URL
 - [x] 2.6 Web source URL normalisation preserves non-tracking query params
-- [ ] 2.7 File source deduplication by path and system_name
+- [x] 2.7 File source deduplication by path and system_name
 - [ ] 2.8 File source with same path but different system_name creates new record
 - [ ] 2.9 Related article IDs create ArticleReference records
 - [ ] 2.10 Related article ID that does not exist is rejected
