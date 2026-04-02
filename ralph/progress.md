@@ -103,7 +103,7 @@
 - [x] 9.7 URL vs file path disambiguation
 
 ## 10. Output & Error Conventions
-- [ ] 10.1 All commands output JSON to stdout
+- [x] 10.1 All commands output JSON to stdout
 - [ ] 10.2 Success exit code is 0
 - [ ] 10.3 Error exit code is non-zero
 - [ ] 10.4 Errors are reported as structured JSON
