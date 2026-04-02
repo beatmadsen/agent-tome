@@ -69,7 +69,7 @@
 - [x] 6.4 Consolidation with updated description
 - [x] 6.5 Consolidation without description keeps original
 - [x] 6.6 Consolidation requires body
-- [ ] 6.6b Consolidation rejects whitespace-only body
+- [x] 6.6b Consolidation rejects whitespace-only body
 - [ ] 6.6c Consolidation rejects description exceeding 350 characters
 - [ ] 6.7 Fetching via original ID after consolidation returns new article
 - [ ] 6.8 Fetching old article by its new ID still works
