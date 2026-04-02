@@ -34,7 +34,7 @@
 - [x] 2.21 Internal IDs are never exposed in output
 
 ## 3. `agent-tome addend`
-- [ ] 3.1 Add content addendum to existing article
+- [x] 3.1 Add content addendum to existing article
 - [ ] 3.2 Add keywords via addendum
 - [ ] 3.3 Metadata-only addendum (no body, just sources)
 - [ ] 3.4 Addendum with all fields
