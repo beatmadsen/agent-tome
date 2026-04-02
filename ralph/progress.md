@@ -79,7 +79,7 @@
 - [x] 7.1 Related via shared keywords
 - [x] 7.2 Related via shared keywords ordering
 - [x] 7.3 Related via ArticleReference (references_to)
-- [ ] 7.3b Related via ArticleReference (referenced_by)
+- [x] 7.3b Related via ArticleReference (referenced_by)
 - [ ] 7.4 Related via ConsolidationLink (consolidated_from)
 - [ ] 7.5 Related via ConsolidationLink (consolidated_into)
 - [ ] 7.6 Article appears in multiple relation arrays
