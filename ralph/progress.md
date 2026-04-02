@@ -65,7 +65,7 @@
 ## 6. `agent-tome consolidate`
 - [x] 6.1 Basic consolidation
 - [x] 6.2 Consolidation copies keywords
-- [ ] 6.3 Consolidation does not migrate ArticleReferences
+- [x] 6.3 Consolidation does not migrate ArticleReferences
 - [ ] 6.4 Consolidation with updated description
 - [ ] 6.5 Consolidation without description keeps original
 - [ ] 6.6 Consolidation requires body
