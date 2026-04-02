@@ -116,7 +116,7 @@
 - [x] 11.2 No records have updated_at
 - [x] 11.3 Duplicate keyword on same article is handled gracefully
 - [x] 11.4 Duplicate source link on same entry is prevented
-- [ ] 11.5 Duplicate article reference is prevented
+- [x] 11.5 Duplicate article reference is prevented
 
 ## 12. Namespace & Distribution
 - [ ] 12.1 Gem provides agent-tome executable
