@@ -1,7 +1,5 @@
 require "test_helper"
 
-BASE58_PATTERN = /\A[1-9A-HJ-NP-Za-km-z]{7}\z/
-
 # AT-2.1: Minimal article creation
 class MinimalArticleCreationTest < Minitest::Test
   include TomeDsl

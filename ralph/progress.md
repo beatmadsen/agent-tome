@@ -11,7 +11,7 @@
 
 ## 2. `agent-tome create`
 - [x] 2.1 Minimal article creation
-- [ ] 2.2 Article with all optional fields
+- [x] 2.2 Article with all optional fields
 - [ ] 2.3 Keywords are singularised and downcased
 - [ ] 2.4 Keyword deduplication across articles
 - [ ] 2.5 Web source deduplication by normalised URL
