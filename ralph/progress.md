@@ -106,7 +106,7 @@
 - [x] 10.1 All commands output JSON to stdout
 - [x] 10.2 Success exit code is 0
 - [x] 10.3 Error exit code is non-zero
-- [ ] 10.4 Errors are reported as structured JSON
+- [x] 10.4 Errors are reported as structured JSON
 - [ ] 10.5 Invalid JSON on stdin is rejected
 - [ ] 10.7 Empty stdin is rejected
 - [ ] 10.6 No command outputs internal integer IDs
