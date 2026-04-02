@@ -104,7 +104,7 @@
 
 ## 10. Output & Error Conventions
 - [x] 10.1 All commands output JSON to stdout
-- [ ] 10.2 Success exit code is 0
+- [x] 10.2 Success exit code is 0
 - [ ] 10.3 Error exit code is non-zero
 - [ ] 10.4 Errors are reported as structured JSON
 - [ ] 10.5 Invalid JSON on stdin is rejected
