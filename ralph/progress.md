@@ -91,7 +91,7 @@
 - [x] 8.1 Keywords matching a prefix
 - [x] 8.2 No matching keywords
 - [x] 8.3 Case-insensitive matching
-- [ ] 8.4 No argument provided
+- [x] 8.4 No argument provided
 
 ## 9. `agent-tome source-search`
 - [ ] 9.1 Search by URL
