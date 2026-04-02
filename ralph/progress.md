@@ -63,7 +63,7 @@
 - [x] 5.5 Fetch non-existent article
 
 ## 6. `agent-tome consolidate`
-- [ ] 6.1 Basic consolidation
+- [x] 6.1 Basic consolidation
 - [ ] 6.2 Consolidation copies keywords
 - [ ] 6.3 Consolidation does not migrate ArticleReferences
 - [ ] 6.4 Consolidation with updated description
