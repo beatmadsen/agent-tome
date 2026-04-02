@@ -119,8 +119,8 @@
 - [x] 11.5 Duplicate article reference is prevented
 
 ## 12. Namespace & Distribution
-- [ ] 12.1 Gem provides agent-tome executable
-- [ ] 12.2 Module namespace is Agent::Tome
+- [x] 12.1 Gem provides agent-tome executable
+- [x] 12.2 Module namespace is Agent::Tome
 
 ## 13. End-to-End Workflows
 - [ ] 13.1 Create, addend, search, fetch lifecycle
