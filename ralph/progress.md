@@ -88,7 +88,7 @@
 - [x] 7.9 Related for non-existent article
 
 ## 8. `agent-tome keywords`
-- [ ] 8.1 Keywords matching a prefix
+- [x] 8.1 Keywords matching a prefix
 - [ ] 8.2 No matching keywords
 - [ ] 8.3 Case-insensitive matching
 - [ ] 8.4 No argument provided
