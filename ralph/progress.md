@@ -96,7 +96,7 @@
 ## 9. `agent-tome source-search`
 - [x] 9.1 Search by URL
 - [x] 9.2 URL is normalised before matching
-- [ ] 9.3 Search by file path (any system)
+- [x] 9.3 Search by file path (any system)
 - [ ] 9.4 Search by file path with --system flag
 - [ ] 9.5 No matching source
 - [ ] 9.6 Output format
