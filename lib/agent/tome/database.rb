@@ -54,6 +54,7 @@ module Agent
       end
 
       def self.run_migrations!
+        ActiveRecord::Migration.verbose = false
         context = ActiveRecord::MigrationContext.new(migrations_path)
         context.migrate
       end
