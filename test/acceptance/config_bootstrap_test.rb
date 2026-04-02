@@ -109,6 +109,47 @@ class PendingMigrationsAutoApplyTest < Minitest::Test
   end
 end
 
+# AT-1.4: Migration state is tracked in the database
+class MigrationStateTrackedInDatabaseTest < Minitest::Test
+  def setup
+    @tmp_dir = Dir.mktmpdir("agent-tome-test-1-4")
+    @db_path = File.join(@tmp_dir, "test.db")
+  end
+
+  def teardown
+    Agent::Tome::Database.disconnect!
+    FileUtils.remove_entry(@tmp_dir) if @tmp_dir && File.exist?(@tmp_dir)
+  end
+
+  def test_migrations_not_reapplied_and_each_version_recorded_once
+    # First invocation: creates DB and runs all migrations
+    Agent::Tome::Database.connect!(@db_path)
+
+    versions_after_first = ActiveRecord::Base.connection
+      .select_values("SELECT version FROM schema_migrations ORDER BY version")
+
+    refute_empty versions_after_first, "Migrations should have run on first connect"
+
+    # Second invocation: simulates running another command
+    Agent::Tome::Database.connect!(@db_path)
+
+    versions_after_second = ActiveRecord::Base.connection
+      .select_values("SELECT version FROM schema_migrations ORDER BY version")
+
+    assert_equal versions_after_first.sort, versions_after_second.sort,
+                 "schema_migrations should be unchanged after second invocation"
+
+    # Each version must appear exactly once
+    versions_after_second.each do |version|
+      count = ActiveRecord::Base.connection
+        .select_value("SELECT COUNT(*) FROM schema_migrations WHERE version = '#{version}'")
+        .to_i
+      assert_equal 1, count,
+                   "Version #{version} should appear exactly once in schema_migrations"
+    end
+  end
+end
+
 # AT-1.1: First run creates config directory
 class ConfigBootstrapTest < Minitest::Test
   def setup

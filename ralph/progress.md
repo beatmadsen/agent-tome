@@ -4,7 +4,7 @@
 - [x] 1.1 First run creates config directory
 - [x] 1.2 First run creates database and runs all migrations
 - [x] 1.3 Pending migrations are applied automatically on invocation
-- [ ] 1.4 Migration state is tracked in the database
+- [x] 1.4 Migration state is tracked in the database
 - [ ] 1.5 Missing config file produces a clear error
 - [ ] 1.6 Missing db_path in config produces a clear error
 - [ ] 1.7 Unwritable db_path produces a clear error
