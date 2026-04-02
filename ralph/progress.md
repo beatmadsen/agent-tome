@@ -99,7 +99,7 @@
 - [x] 9.3 Search by file path (any system)
 - [x] 9.4 Search by file path with --system flag
 - [x] 9.5 No matching source
-- [ ] 9.6 Output format
+- [x] 9.6 Output format
 - [ ] 9.7 URL vs file path disambiguation
 
 ## 10. Output & Error Conventions
