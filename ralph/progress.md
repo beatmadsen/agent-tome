@@ -67,7 +67,7 @@
 - [x] 6.2 Consolidation copies keywords
 - [x] 6.3 Consolidation does not migrate ArticleReferences
 - [x] 6.4 Consolidation with updated description
-- [ ] 6.5 Consolidation without description keeps original
+- [x] 6.5 Consolidation without description keeps original
 - [ ] 6.6 Consolidation requires body
 - [ ] 6.6b Consolidation rejects whitespace-only body
 - [ ] 6.6c Consolidation rejects description exceeding 350 characters
