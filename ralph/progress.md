@@ -27,7 +27,7 @@
 - [x] 2.14 Blank/whitespace-only body is rejected
 - [x] 2.15 Empty keyword string is rejected
 - [x] 2.16 Invalid web source URL is rejected
-- [ ] 2.17 File source with empty path is rejected
+- [x] 2.17 File source with empty path is rejected
 - [ ] 2.18 File source with empty system_name is rejected
 - [ ] 2.19 Description at exactly 350 characters is accepted
 - [ ] 2.20 Global IDs are 7-character base58 strings
