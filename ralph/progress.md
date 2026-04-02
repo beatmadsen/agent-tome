@@ -1,7 +1,7 @@
 # Acceptance Test Progress
 
 ## 1. Configuration & Bootstrap
-- [ ] 1.1 First run creates config directory
+- [x] 1.1 First run creates config directory
 - [ ] 1.2 First run creates database and runs all migrations
 - [ ] 1.3 Pending migrations are applied automatically on invocation
 - [ ] 1.4 Migration state is tracked in the database
