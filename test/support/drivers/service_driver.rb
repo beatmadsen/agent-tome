@@ -13,10 +13,10 @@ class ServiceDriver
     nil
   end
 
-  def create(description:, body:, keywords: [], web_sources: [], file_sources: [], related_article_ids: [])
+  def create(description: nil, body: :__unset__, keywords: [], web_sources: [], file_sources: [], related_article_ids: [])
     input = build_input(
       "description" => description,
-      "body" => body,
+      "body" => (body == :__unset__ ? nil : body),
       "keywords" => keywords,
       "web_sources" => web_sources.map(&method(:stringify_keys)),
       "file_sources" => file_sources.map(&method(:stringify_keys)),

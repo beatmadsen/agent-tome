@@ -23,7 +23,7 @@
 - [x] 2.22 Self-referencing related_article_ids is rejected
 - [x] 2.11 Description exceeding 350 characters is rejected
 - [x] 2.12 Missing description is rejected
-- [ ] 2.13 Missing body is rejected
+- [x] 2.13 Missing body is rejected
 - [ ] 2.14 Blank/whitespace-only body is rejected
 - [ ] 2.15 Empty keyword string is rejected
 - [ ] 2.16 Invalid web source URL is rejected
