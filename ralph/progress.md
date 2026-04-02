@@ -35,7 +35,7 @@
 
 ## 3. `agent-tome addend`
 - [x] 3.1 Add content addendum to existing article
-- [ ] 3.2 Add keywords via addendum
+- [x] 3.2 Add keywords via addendum
 - [ ] 3.3 Metadata-only addendum (no body, just sources)
 - [ ] 3.4 Addendum with all fields
 - [ ] 3.5 Empty addendum is rejected
