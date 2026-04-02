@@ -124,7 +124,7 @@
 
 ## 13. End-to-End Workflows
 - [x] 13.1 Create, addend, search, fetch lifecycle
-- [ ] 13.2 Create, consolidate, fetch lifecycle
+- [x] 13.2 Create, consolidate, fetch lifecycle
 - [ ] 13.3 Source deduplication across articles
 - [ ] 13.4 Keyword vocabulary discovery
 - [ ] 13.5 Cross-referencing articles (directional clarity)
