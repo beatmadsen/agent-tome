@@ -44,8 +44,9 @@ class CliDriver
     run_command("fetch", global_id)
   end
 
-  def consolidate(global_id, body:, description: nil)
-    input = { "body" => body }
+  def consolidate(global_id, body: :__unset__, description: nil)
+    input = {}
+    input["body"] = body unless body == :__unset__
     input["description"] = description if description
     run_command("consolidate", global_id, stdin: JSON.generate(input))
   end

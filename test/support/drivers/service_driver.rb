@@ -57,8 +57,9 @@ class ServiceDriver
     TomeTest::Result.new(error_message: e.message, exit_code: 1)
   end
 
-  def consolidate(global_id, body:, description: nil)
-    input = { "body" => body }
+  def consolidate(global_id, body: :__unset__, description: nil)
+    input = {}
+    input["body"] = body unless body == :__unset__
     input["description"] = description if description
     data = Agent::Tome::Commands::Consolidate.new(global_id: global_id).call(input)
     TomeTest::Result.new(data: data)
