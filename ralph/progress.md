@@ -56,7 +56,7 @@
 - [x] 4.9 Search with no keywords
 
 ## 5. `agent-tome fetch`
-- [ ] 5.1 Fetch a simple article
+- [x] 5.1 Fetch a simple article
 - [ ] 5.2 Fetch article with multiple entries
 - [ ] 5.3 Fetch article with sources on entries
 - [ ] 5.4 Fetch consolidated article includes consolidated_from
