@@ -29,7 +29,7 @@
 - [x] 2.16 Invalid web source URL is rejected
 - [x] 2.17 File source with empty path is rejected
 - [x] 2.18 File source with empty system_name is rejected
-- [ ] 2.19 Description at exactly 350 characters is accepted
+- [x] 2.19 Description at exactly 350 characters is accepted
 - [ ] 2.20 Global IDs are 7-character base58 strings
 - [ ] 2.21 Internal IDs are never exposed in output
 
