@@ -45,7 +45,7 @@
 - [x] 3.9 Related article IDs on addendum
 
 ## 4. `agent-tome search`
-- [ ] 4.1 Search with default match mode (any)
+- [x] 4.1 Search with default match mode (any)
 - [ ] 4.2 Search with --match all
 - [ ] 4.3 Search with --match any (explicit)
 - [ ] 4.4 Search results ordered by matching keyword count descending
