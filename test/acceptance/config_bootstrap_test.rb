@@ -1,4 +1,5 @@
 require "test_helper"
+require "open3"
 
 # AT-1.2: First run creates database and runs all migrations
 class FirstRunCreatesDatabaseTest < Minitest::Test
@@ -147,6 +148,114 @@ class MigrationStateTrackedInDatabaseTest < Minitest::Test
       assert_equal 1, count,
                    "Version #{version} should appear exactly once in schema_migrations"
     end
+  end
+end
+
+# AT-1.5: Missing config file produces a clear error
+class MissingConfigFileErrorTest < Minitest::Test
+  def setup
+    @tmp_dir = Dir.mktmpdir("agent-tome-test-1-5")
+    @config_dir = File.join(@tmp_dir, "config")
+    FileUtils.mkdir_p(@config_dir)
+    # Config dir exists but config.yml is deliberately absent
+  end
+
+  def teardown
+    FileUtils.remove_entry(@tmp_dir) if @tmp_dir && File.exist?(@tmp_dir)
+  end
+
+  def test_missing_config_file_raises_config_error_with_clear_message
+    config = Agent::Tome::Config.new(config_dir: @config_dir)
+    error = assert_raises(Agent::Tome::ConfigError) { config.load! }
+    assert_match(/config/i, error.message,
+                 "Error should mention the config file, got: #{error.message.inspect}")
+  end
+
+  def test_missing_config_file_cli_exits_nonzero_with_json_error
+    env = { "AGENT_TOME_CONFIG_DIR" => @config_dir, "RUBYLIB" => File.expand_path("../../lib", __dir__) }
+    bin = File.expand_path("../../bin/agent-tome", __dir__)
+    cmd = [RbConfig.ruby, bin, "search", "ruby"]
+
+    stdout, _stderr, status = Open3.capture3(env, *cmd)
+
+    refute_equal 0, status.exitstatus, "Exit code should be non-zero"
+    parsed = JSON.parse(stdout)
+    assert parsed.key?("error"), "Output should be a JSON error object"
+    assert_match(/config/i, parsed["error"])
+  end
+end
+
+# AT-1.6: Missing db_path in config produces a clear error
+class MissingDbPathInConfigErrorTest < Minitest::Test
+  def setup
+    @tmp_dir = Dir.mktmpdir("agent-tome-test-1-6")
+    @config_dir = File.join(@tmp_dir, "config")
+    FileUtils.mkdir_p(@config_dir)
+    File.write(File.join(@config_dir, "config.yml"), YAML.dump({}))
+  end
+
+  def teardown
+    FileUtils.remove_entry(@tmp_dir) if @tmp_dir && File.exist?(@tmp_dir)
+  end
+
+  def test_missing_db_path_raises_config_error_with_clear_message
+    config = Agent::Tome::Config.new(config_dir: @config_dir)
+    error = assert_raises(Agent::Tome::ConfigError) { config.load! }
+    assert_match(/db_path/i, error.message,
+                 "Error should mention db_path, got: #{error.message.inspect}")
+  end
+
+  def test_missing_db_path_cli_exits_nonzero_with_json_error
+    env = { "AGENT_TOME_CONFIG_DIR" => @config_dir, "RUBYLIB" => File.expand_path("../../lib", __dir__) }
+    bin = File.expand_path("../../bin/agent-tome", __dir__)
+    cmd = [RbConfig.ruby, bin, "search", "ruby"]
+
+    stdout, _stderr, status = Open3.capture3(env, *cmd)
+
+    refute_equal 0, status.exitstatus, "Exit code should be non-zero"
+    parsed = JSON.parse(stdout)
+    assert parsed.key?("error"), "Output should be a JSON error object"
+    assert_match(/db_path/i, parsed["error"])
+  end
+end
+
+# AT-1.7: Unwritable db_path produces a clear error
+class UnwritableDbPathErrorTest < Minitest::Test
+  def setup
+    @tmp_dir = Dir.mktmpdir("agent-tome-test-1-7")
+    @config_dir = File.join(@tmp_dir, "config")
+    FileUtils.mkdir_p(@config_dir)
+    @db_path = "/root/no-access/tome.db"
+    File.write(File.join(@config_dir, "config.yml"), YAML.dump("db_path" => @db_path))
+  end
+
+  def teardown
+    FileUtils.remove_entry(@tmp_dir) if @tmp_dir && File.exist?(@tmp_dir)
+  end
+
+  def test_unwritable_db_path_raises_database_error
+    skip "Test must not run as root" if Process.uid == 0
+
+    config = Agent::Tome::Config.new(config_dir: @config_dir)
+    config.load!
+    error = assert_raises(Agent::Tome::DatabaseError) { Agent::Tome::Database.connect!(config.db_path) }
+    assert_match(/not writable|writable/i, error.message,
+                 "Error should mention the path is not writable, got: #{error.message.inspect}")
+  end
+
+  def test_unwritable_db_path_cli_exits_nonzero_with_json_error
+    skip "Test must not run as root" if Process.uid == 0
+
+    env = { "AGENT_TOME_CONFIG_DIR" => @config_dir, "RUBYLIB" => File.expand_path("../../lib", __dir__) }
+    bin = File.expand_path("../../bin/agent-tome", __dir__)
+    cmd = [RbConfig.ruby, bin, "search", "ruby"]
+
+    stdout, _stderr, status = Open3.capture3(env, *cmd)
+
+    refute_equal 0, status.exitstatus, "Exit code should be non-zero"
+    parsed = JSON.parse(stdout)
+    assert parsed.key?("error"), "Output should be a JSON error object"
+    assert_match(/writable/i, parsed["error"])
   end
 end
 

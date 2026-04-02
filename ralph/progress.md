@@ -5,9 +5,9 @@
 - [x] 1.2 First run creates database and runs all migrations
 - [x] 1.3 Pending migrations are applied automatically on invocation
 - [x] 1.4 Migration state is tracked in the database
-- [ ] 1.5 Missing config file produces a clear error
-- [ ] 1.6 Missing db_path in config produces a clear error
-- [ ] 1.7 Unwritable db_path produces a clear error
+- [x] 1.5 Missing config file produces a clear error
+- [x] 1.6 Missing db_path in config produces a clear error
+- [x] 1.7 Unwritable db_path produces a clear error
 
 ## 2. `agent-tome create`
 - [ ] 2.1 Minimal article creation

@@ -24,7 +24,7 @@ module Agent
         unless File.directory?(db_dir)
           begin
             FileUtils.mkdir_p(db_dir)
-          rescue Errno::EACCES, Errno::EPERM => e
+          rescue Errno::EACCES, Errno::EPERM, Errno::EROFS => e
             raise DatabaseError, "Database path is not writable: #{db_path} (#{e.message})"
           end
         end
@@ -43,7 +43,7 @@ module Agent
         ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = ON")
 
         run_migrations!
-      rescue Errno::EACCES, Errno::EPERM => e
+      rescue Errno::EACCES, Errno::EPERM, Errno::EROFS => e
         raise DatabaseError, "Database path is not writable: #{db_path} (#{e.message})"
       end
 
