@@ -77,7 +77,7 @@
 
 ## 7. `agent-tome related`
 - [x] 7.1 Related via shared keywords
-- [ ] 7.2 Related via shared keywords ordering
+- [x] 7.2 Related via shared keywords ordering
 - [ ] 7.3 Related via ArticleReference (references_to)
 - [ ] 7.3b Related via ArticleReference (referenced_by)
 - [ ] 7.4 Related via ConsolidationLink (consolidated_from)
