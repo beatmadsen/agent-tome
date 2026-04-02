@@ -73,7 +73,7 @@
 - [x] 6.6c Consolidation rejects description exceeding 350 characters
 - [x] 6.7 Fetching via original ID after consolidation returns new article
 - [x] 6.8 Fetching old article by its new ID still works
-- [ ] 6.9 Consolidation of non-existent article
+- [x] 6.9 Consolidation of non-existent article
 
 ## 7. `agent-tome related`
 - [ ] 7.1 Related via shared keywords
