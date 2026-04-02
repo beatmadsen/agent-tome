@@ -112,7 +112,7 @@
 - [x] 10.6 No command outputs internal integer IDs
 
 ## 11. Data Model Integrity
-- [ ] 11.1 Global IDs are unique within each table
+- [x] 11.1 Global IDs are unique within each table
 - [ ] 11.2 No records have updated_at
 - [ ] 11.3 Duplicate keyword on same article is handled gracefully
 - [ ] 11.4 Duplicate source link on same entry is prevented
