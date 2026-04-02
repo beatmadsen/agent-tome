@@ -6,6 +6,18 @@ module Agent
     module Database
       MIGRATIONS_PATH = File.expand_path("../../../../db/migrate", __FILE__)
 
+      @migrations_path_override = nil
+
+      class << self
+        def migrations_path
+          @migrations_path_override || MIGRATIONS_PATH
+        end
+
+        def migrations_path=(path)
+          @migrations_path_override = path
+        end
+      end
+
       def self.connect!(db_path)
         db_dir = File.dirname(db_path)
 
@@ -42,7 +54,7 @@ module Agent
       end
 
       def self.run_migrations!
-        context = ActiveRecord::MigrationContext.new(MIGRATIONS_PATH)
+        context = ActiveRecord::MigrationContext.new(migrations_path)
         context.migrate
       end
 
