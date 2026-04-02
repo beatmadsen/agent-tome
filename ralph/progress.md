@@ -50,7 +50,7 @@
 - [x] 4.3 Search with --match any (explicit)
 - [x] 4.4 Search results ordered by matching keyword count descending
 - [x] 4.5 Search keywords are normalised before matching
-- [ ] 4.6 Search with no matching results
+- [x] 4.6 Search with no matching results
 - [ ] 4.7 Search results capped at 1000
 - [ ] 4.8 Search result format
 - [ ] 4.9 Search with no keywords
