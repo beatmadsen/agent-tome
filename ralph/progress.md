@@ -85,7 +85,7 @@
 - [x] 7.6 Article appears in multiple relation arrays
 - [x] 7.7 Empty results
 - [x] 7.8 Shared keywords capped at 100
-- [ ] 7.9 Related for non-existent article
+- [x] 7.9 Related for non-existent article
 
 ## 8. `agent-tome keywords`
 - [ ] 8.1 Keywords matching a prefix
