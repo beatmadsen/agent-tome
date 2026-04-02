@@ -114,7 +114,7 @@
 ## 11. Data Model Integrity
 - [x] 11.1 Global IDs are unique within each table
 - [x] 11.2 No records have updated_at
-- [ ] 11.3 Duplicate keyword on same article is handled gracefully
+- [x] 11.3 Duplicate keyword on same article is handled gracefully
 - [ ] 11.4 Duplicate source link on same entry is prevented
 - [ ] 11.5 Duplicate article reference is prevented
 
