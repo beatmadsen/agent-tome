@@ -123,7 +123,7 @@
 - [x] 12.2 Module namespace is Agent::Tome
 
 ## 13. End-to-End Workflows
-- [ ] 13.1 Create, addend, search, fetch lifecycle
+- [x] 13.1 Create, addend, search, fetch lifecycle
 - [ ] 13.2 Create, consolidate, fetch lifecycle
 - [ ] 13.3 Source deduplication across articles
 - [ ] 13.4 Keyword vocabulary discovery
