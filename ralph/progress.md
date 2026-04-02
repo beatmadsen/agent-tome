@@ -18,7 +18,7 @@
 - [x] 2.6 Web source URL normalisation preserves non-tracking query params
 - [x] 2.7 File source deduplication by path and system_name
 - [x] 2.8 File source with same path but different system_name creates new record
-- [ ] 2.9 Related article IDs create ArticleReference records
+- [x] 2.9 Related article IDs create ArticleReference records
 - [ ] 2.10 Related article ID that does not exist is rejected
 - [ ] 2.22 Self-referencing related_article_ids is rejected
 - [ ] 2.11 Description exceeding 350 characters is rejected
