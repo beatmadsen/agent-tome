@@ -41,6 +41,8 @@ module Agent
         )
 
         ActiveRecord::Base.connection.execute("PRAGMA foreign_keys = ON")
+        ActiveRecord::Base.connection.execute("PRAGMA journal_mode = WAL")
+        ActiveRecord::Base.connection.execute("PRAGMA busy_timeout = 5000")
 
         run_migrations!
       rescue Errno::EACCES, Errno::EPERM, Errno::EROFS => e
