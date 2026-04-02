@@ -21,7 +21,7 @@
 - [x] 2.9 Related article IDs create ArticleReference records
 - [x] 2.10 Related article ID that does not exist is rejected
 - [x] 2.22 Self-referencing related_article_ids is rejected
-- [ ] 2.11 Description exceeding 350 characters is rejected
+- [x] 2.11 Description exceeding 350 characters is rejected
 - [ ] 2.12 Missing description is rejected
 - [ ] 2.13 Missing body is rejected
 - [ ] 2.14 Blank/whitespace-only body is rejected
