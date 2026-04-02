@@ -41,7 +41,7 @@
 - [x] 3.5 Empty addendum is rejected
 - [x] 3.6 Addendum with only empty body is rejected
 - [x] 3.7 Addendum to non-existent article is rejected
-- [ ] 3.8 Duplicate keyword on addendum is idempotent
+- [x] 3.8 Duplicate keyword on addendum is idempotent
 - [ ] 3.9 Related article IDs on addendum
 
 ## 4. `agent-tome search`
