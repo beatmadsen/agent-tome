@@ -109,7 +109,7 @@
 - [x] 10.4 Errors are reported as structured JSON
 - [x] 10.5 Invalid JSON on stdin is rejected
 - [x] 10.7 Empty stdin is rejected
-- [ ] 10.6 No command outputs internal integer IDs
+- [x] 10.6 No command outputs internal integer IDs
 
 ## 11. Data Model Integrity
 - [ ] 11.1 Global IDs are unique within each table
