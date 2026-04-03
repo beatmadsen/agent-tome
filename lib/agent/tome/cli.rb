@@ -15,9 +15,14 @@ module Agent
       def run
         command = @argv.shift
 
-        if command.nil?
-          output_error("No command provided")
-          exit 1
+        if command.nil? || command == "--help" || command == "-h"
+          print_usage
+          exit 0
+        end
+
+        if command == "--version" || command == "version"
+          puts VERSION
+          exit 0
         end
 
         config = Config.new
@@ -102,6 +107,9 @@ module Agent
       end
 
       def read_stdin_json
+        if $stdin.tty?
+          $stderr.puts "Reading JSON from stdin (Ctrl-D to finish)..."
+        end
         raw = $stdin.read
         raise ValidationError, "Empty input" if raw.nil? || raw.strip.empty?
 
@@ -138,6 +146,28 @@ module Agent
         end
 
         [source, system]
+      end
+
+      def print_usage
+        $stderr.puts <<~USAGE
+          Usage: agent-tome <command> [options]
+
+          Commands:
+            create                    Create a new article (JSON via stdin)
+            addend <id>               Add an addendum to an article (JSON via stdin)
+            search <keywords...>      Search articles by keywords
+            fetch <id>                Retrieve full article content
+            related <id>              Find related articles
+            consolidate <id>          Merge addenda into one article (JSON via stdin)
+            keywords <prefix>         List keywords matching a prefix
+            source-search <url|path>  Find articles by source reference
+
+          Options:
+            --help, -h                Show this help
+            --version                 Show version
+
+          See https://github.com/beatmadsen/agent-tome for full documentation.
+        USAGE
       end
 
       def output_error(message)

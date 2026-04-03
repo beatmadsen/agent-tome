@@ -10,7 +10,24 @@ Every research finding, technical discovery, and hard-won insight is captured an
 gem install agent-tome
 ```
 
-On first run, a config directory is created at `~/.agent-tome/` with a `config.yml` where you set `db_path` — the absolute path to your SQLite database file.
+On first run, a config directory is created at `~/.agent-tome/` with a SQLite database at `~/.agent-tome/tome.db`. To use a different database location, edit `~/.agent-tome/config.yml` and change `db_path`.
+
+## Quick Start
+
+```bash
+# Create your first article
+echo '{"description": "Ruby GC internals", "body": "Ruby uses a generational mark-and-sweep garbage collector.", "keywords": ["ruby", "garbage-collection"]}' | agent-tome create
+# => {"global_id": "3xK9mWp", ...}
+
+# Search for it later
+agent-tome search ruby gc
+
+# Add new findings as an addendum
+echo '{"body": "GC compaction was added in Ruby 2.7 via GC.compact."}' | agent-tome addend 3xK9mWp
+
+# Fetch the full article with all entries
+agent-tome fetch 3xK9mWp
+```
 
 ## Commands
 
