@@ -4,13 +4,13 @@ require "test_helper"
 # AT-12.2: Module namespace is Agent::Tome
 class NamespaceDistributionTest < Minitest::Test
   def test_agent_tome_executable_exists
-    bin_path = File.expand_path("../../bin/agent-tome", __dir__)
-    assert File.exist?(bin_path), "Expected bin/agent-tome to exist"
+    exe_path = File.expand_path("../../exe/agent-tome", __dir__)
+    assert File.exist?(exe_path), "Expected exe/agent-tome to exist"
   end
 
   def test_agent_tome_executable_is_executable
-    bin_path = File.expand_path("../../bin/agent-tome", __dir__)
-    assert File.executable?(bin_path), "Expected bin/agent-tome to be executable"
+    exe_path = File.expand_path("../../exe/agent-tome", __dir__)
+    assert File.executable?(exe_path), "Expected exe/agent-tome to be executable"
   end
 
   def test_gemspec_declares_agent_tome_as_executable

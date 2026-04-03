@@ -173,7 +173,7 @@ class MissingConfigFileErrorTest < Minitest::Test
 
   def test_missing_config_file_cli_exits_nonzero_with_json_error
     env = { "AGENT_TOME_CONFIG_DIR" => @config_dir, "RUBYLIB" => File.expand_path("../../lib", __dir__) }
-    bin = File.expand_path("../../bin/agent-tome", __dir__)
+    bin = File.expand_path("../../exe/agent-tome", __dir__)
     cmd = [RbConfig.ruby, bin, "search", "ruby"]
 
     stdout, _stderr, status = Open3.capture3(env, *cmd)
@@ -207,7 +207,7 @@ class MissingDbPathInConfigErrorTest < Minitest::Test
 
   def test_missing_db_path_cli_exits_nonzero_with_json_error
     env = { "AGENT_TOME_CONFIG_DIR" => @config_dir, "RUBYLIB" => File.expand_path("../../lib", __dir__) }
-    bin = File.expand_path("../../bin/agent-tome", __dir__)
+    bin = File.expand_path("../../exe/agent-tome", __dir__)
     cmd = [RbConfig.ruby, bin, "search", "ruby"]
 
     stdout, _stderr, status = Open3.capture3(env, *cmd)
@@ -247,7 +247,7 @@ class UnwritableDbPathErrorTest < Minitest::Test
     skip "Test must not run as root" if Process.uid == 0
 
     env = { "AGENT_TOME_CONFIG_DIR" => @config_dir, "RUBYLIB" => File.expand_path("../../lib", __dir__) }
-    bin = File.expand_path("../../bin/agent-tome", __dir__)
+    bin = File.expand_path("../../exe/agent-tome", __dir__)
     cmd = [RbConfig.ruby, bin, "search", "ruby"]
 
     stdout, _stderr, status = Open3.capture3(env, *cmd)

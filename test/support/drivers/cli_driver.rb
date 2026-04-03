@@ -2,7 +2,7 @@ require "json"
 require "open3"
 
 class CliDriver
-  BIN_PATH = File.expand_path("../../../../bin/agent-tome", __FILE__)
+  BIN_PATH = File.expand_path("../../../../exe/agent-tome", __FILE__)
   LIB_PATH = File.expand_path("../../../../lib", __FILE__)
 
   def initialize(db_path:, config_dir:)

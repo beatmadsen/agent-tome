@@ -5,7 +5,7 @@ require "open3"
 # When agent-tome create receives `{invalid json` on stdin
 # Then exit code is non-zero, JSON error about malformed input.
 class InvalidJsonStdinTest < Minitest::Test
-  BIN_PATH = File.expand_path("../../bin/agent-tome", __dir__)
+  BIN_PATH = File.expand_path("../../exe/agent-tome", __dir__)
   LIB_PATH = File.expand_path("../../lib", __dir__)
 
   def setup
