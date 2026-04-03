@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = "https://github.com/beatmadsen/agent-tome/blob/main/CHANGELOG.md"
-  spec.metadata["documentation_uri"] = "https://github.com/beatmadsen/claude-skills"
 
   gemspec = File.basename(__FILE__)
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
