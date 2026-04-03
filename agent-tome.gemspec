@@ -9,11 +9,10 @@ Gem::Specification.new do |spec|
   spec.email = []
 
   spec.summary = "Build a personal encyclopedia of accumulated knowledge, designed for AI agents."
-  spec.description = "A CLI knowledge base that grows with you. Every research finding, " \
-                     "technical discovery, and hard-won insight is captured and preserved " \
-                     "in an append-only SQLite store — building your own personal encyclopedia " \
-                     "over time. Designed for AI agents to read and write via CLI, " \
-                     "so your agent remembers what you've already learned."
+  spec.description = "A knowledge base that grows with every session your AI agent runs. " \
+                     "Findings accumulate in a persistent, append-only store, so your agent " \
+                     "can build on what it already knows instead of starting from scratch. " \
+                     "Keyword-indexed and searchable from any CLI."
   spec.homepage = "https://github.com/beatmadsen/agent-tome"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2"
