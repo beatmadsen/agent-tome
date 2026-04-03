@@ -8,10 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors = ["Erik T. Madsen"]
   spec.email = []
 
-  spec.summary = "Personal knowledge base CLI backed by SQLite, designed for AI agents."
-  spec.description = "A CLI tool for building and querying a personal knowledge base stored in SQLite. " \
-                     "Append-only, immutable data model with keyword-based discovery. " \
-                     "Includes Claude Code skills for AI agent integration."
+  spec.summary = "Build a personal encyclopedia of accumulated knowledge, designed for AI agents."
+  spec.description = "A CLI knowledge base that grows with you. Every research finding, " \
+                     "technical discovery, and hard-won insight is captured and preserved " \
+                     "in an append-only SQLite store — building your own personal encyclopedia " \
+                     "over time. Designed for AI agents to read and write via Claude Code skills, " \
+                     "so your agent remembers what you've already learned."
   spec.homepage = "https://github.com/beatmadsen/agent-tome"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.4"

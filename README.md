@@ -1,8 +1,8 @@
 # Agent Tome
 
-A personal knowledge base CLI backed by SQLite, designed for AI agents.
+Build a personal encyclopedia of accumulated knowledge, designed for AI agents.
 
-Agent Tome stores research findings, reports, and accumulated knowledge in an append-only, immutable data model. All output is JSON. All complex input is JSON via stdin.
+Every research finding, technical discovery, and hard-won insight is captured and preserved in an append-only SQLite store — building your own encyclopedia over time. Designed for AI agents to read and write via Claude Code skills, so your agent remembers what you've already learned.
 
 ## Installation
 
