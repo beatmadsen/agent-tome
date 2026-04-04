@@ -22,7 +22,7 @@ module Agent
             )
 
             KeywordLinker.call(article, input["keywords"] || [])
-            web_source_ids = process_web_sources!(entry, input["web_sources"] || [])
+            web_source_ids = WebSourceLinker.call(entry, input["web_sources"] || [])
             file_source_ids = process_file_sources!(entry, input["file_sources"] || [])
             process_related_articles!(article, input["related_article_ids"] || [])
 
@@ -91,21 +91,6 @@ module Agent
         end
 
 
-        def process_web_sources!(entry, sources)
-          sources.map do |src|
-            normalized_url = UrlNormalizer.normalize(src["url"])
-            ws = WebSource.find_or_create_by!(url: normalized_url) do |w|
-              w.global_id = GlobalId.generate
-              w.title = src["title"]
-              w.fetched_at = src["fetched_at"] ? Time.parse(src["fetched_at"]) : nil
-              w.created_at = Time.now
-            end
-            EntryWebSource.find_or_create_by!(entry: entry, web_source: ws) do |ews|
-              ews.created_at = Time.now
-            end
-            ws.global_id
-          end
-        end
 
         def process_file_sources!(entry, sources)
           sources.map do |src|
