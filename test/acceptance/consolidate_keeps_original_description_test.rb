@@ -5,18 +5,17 @@ class ConsolidateKeepsOriginalDescriptionTest < Minitest::Test
   include TomeDsl
 
   def test_consolidation_keeps_original_description_when_not_provided
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Original description",
       body: "Original content."
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     original_id = create_result.article_global_id
 
     result = tome.consolidate(original_id, body: "New merged content")
-    assert result.success?, "Consolidate failed: #{result.error_message}"
+    assert_success result, "Consolidate failed: #{result.error_message}"
 
     fetch_result = tome.fetch(result.new_article_global_id)
-    assert fetch_result.success?
+    assert_success fetch_result
     assert_equal "Original description", fetch_result.data["description"]
   end
 end

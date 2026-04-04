@@ -19,15 +19,15 @@ class ConsolateCopiesSourcesTest < Minitest::Test
       body: "Second entry content.",
       web_sources: [{ url: "https://example.com/b", title: "Source B" }]
     )
-    assert addend_result.success?, "Addend failed: #{addend_result.error_message}"
+    assert_success addend_result, "Addend failed: #{addend_result.error_message}"
 
     # Consolidate
     result = tome.consolidate(article_id, body: "Merged content from both entries.")
-    assert result.success?, "Consolidate failed: #{result.error_message}"
+    assert_success result, "Consolidate failed: #{result.error_message}"
 
     # Fetch the consolidated article and check sources on the single entry
     fetch_result = tome.fetch(result.new_article_global_id)
-    assert fetch_result.success?
+    assert_success fetch_result
 
     entries = fetch_result.data["entries"]
     assert_equal 1, entries.length, "Consolidated article should have exactly one entry"

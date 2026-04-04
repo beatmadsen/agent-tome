@@ -6,23 +6,22 @@ class ConsolidateFetchOriginalIdTest < Minitest::Test
 
   def test_fetching_original_id_returns_new_consolidated_article
     # Create article with an addendum so it has history worth consolidating
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Original article description",
       body: "Original first entry content.",
       keywords: ["ruby"]
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     original_id = create_result.article_global_id
 
     addend_result = tome.addend(original_id, body: "Additional finding.")
-    assert addend_result.success?, "Addend failed: #{addend_result.error_message}"
+    assert_success addend_result, "Addend failed: #{addend_result.error_message}"
 
     # Consolidate — new article takes over the original global_id
     consolidate_result = tome.consolidate(
       original_id,
       body: "Merged consolidated content from all entries."
     )
-    assert consolidate_result.success?, "Consolidate failed: #{consolidate_result.error_message}"
+    assert_success consolidate_result, "Consolidate failed: #{consolidate_result.error_message}"
 
     new_article_id = consolidate_result.new_article_global_id
     old_article_id = consolidate_result.old_article_global_id
@@ -33,7 +32,7 @@ class ConsolidateFetchOriginalIdTest < Minitest::Test
 
     # Fetch via the original ID — should return the NEW consolidated article
     fetch_result = tome.fetch(original_id)
-    assert fetch_result.success?, "Fetch failed: #{fetch_result.error_message}"
+    assert_success fetch_result, "Fetch failed: #{fetch_result.error_message}"
 
     data = fetch_result.data
 

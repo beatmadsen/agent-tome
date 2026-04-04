@@ -6,23 +6,22 @@ class ConsolidateFetchOldArticleTest < Minitest::Test
 
   def test_fetching_old_article_by_new_id_returns_original_entries
     # Create article with two entries
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Ruby GC internals",
       body: "Mark and sweep basics.",
       keywords: ["ruby", "gc"]
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     original_id = create_result.article_global_id
 
     addend_result = tome.addend(original_id, body: "Generational GC added in 2.1.")
-    assert addend_result.success?, "Addend failed: #{addend_result.error_message}"
+    assert_success addend_result, "Addend failed: #{addend_result.error_message}"
 
     # Consolidate — old article is re-IDed, new article takes over original_id
     consolidate_result = tome.consolidate(
       original_id,
       body: "Consolidated content merging all entries."
     )
-    assert consolidate_result.success?, "Consolidate failed: #{consolidate_result.error_message}"
+    assert_success consolidate_result, "Consolidate failed: #{consolidate_result.error_message}"
 
     new_article_id = consolidate_result.new_article_global_id
     old_article_id = consolidate_result.old_article_global_id
@@ -32,7 +31,7 @@ class ConsolidateFetchOldArticleTest < Minitest::Test
 
     # Fetch old article via its newly assigned global_id
     fetch_result = tome.fetch(old_article_id)
-    assert fetch_result.success?, "Fetch of old article failed: #{fetch_result.error_message}"
+    assert_success fetch_result, "Fetch of old article failed: #{fetch_result.error_message}"
 
     data = fetch_result.data
     assert_equal old_article_id, data["global_id"]
