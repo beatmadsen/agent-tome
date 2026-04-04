@@ -12,61 +12,19 @@ module Agent
 
           validate!(input)
 
-          result = {}
-
           ActiveRecord::Base.transaction do
-            original_global_id = article.global_id
-            new_description = input["description"] || article.description
+            original_global_id = swap_global_id!(article)
+            new_article = create_consolidated_article(original_global_id, article, input)
+            new_entry = create_consolidated_entry(new_article, input)
+            copy_sources!(article, new_entry)
+            copy_keywords!(article, new_article)
+            ConsolidationLink.create!(new_article: new_article, old_article: article, created_at: Time.now)
 
-            # Assign old article a new global_id
-            old_global_id = GlobalId.generate
-            article.update_columns(global_id: old_global_id)
-
-            # Create the new consolidated article with the original global_id
-            new_article = Article.create!(
-              global_id: original_global_id,
-              description: new_description,
-              created_at: Time.now
-            )
-
-            # Create the first (and only) entry for the consolidated article
-            new_entry = Entry.create!(
-              article: new_article,
-              body: input["body"],
-              created_at: Time.now
-            )
-
-            # Copy all sources from old article's entries to the consolidated entry
-            article.entries.each do |old_entry|
-              old_entry.web_sources.each do |ws|
-                EntryWebSource.find_or_create_by!(entry: new_entry, web_source: ws)
-              end
-              old_entry.file_sources.each do |fs|
-                EntryFileSource.find_or_create_by!(entry: new_entry, file_source: fs)
-              end
-            end
-
-            # Copy keywords from old article to new article
-            article.keywords.each do |keyword|
-              ArticleKeyword.find_or_create_by!(article: new_article, keyword: keyword) do |ak|
-                ak.created_at = Time.now
-              end
-            end
-
-            # Create consolidation link
-            ConsolidationLink.create!(
-              new_article: new_article,
-              old_article: article,
-              created_at: Time.now
-            )
-
-            result = {
+            {
               "new_article_global_id" => new_article.global_id,
               "old_article_global_id" => article.global_id
             }
           end
-
-          result
         end
 
         private
@@ -82,6 +40,43 @@ module Agent
             desc = input["description"]
             raise ValidationError, "description must be a string" unless desc.is_a?(String)
             raise ValidationError, "description must be 350 characters or fewer" if desc.length > 350
+          end
+        end
+
+        def swap_global_id!(article)
+          original_global_id = article.global_id
+          article.update_columns(global_id: GlobalId.generate)
+          original_global_id
+        end
+
+        def create_consolidated_article(original_global_id, old_article, input)
+          Article.create!(
+            global_id: original_global_id,
+            description: input["description"] || old_article.description,
+            created_at: Time.now
+          )
+        end
+
+        def create_consolidated_entry(article, input)
+          Entry.create!(article: article, body: input["body"], created_at: Time.now)
+        end
+
+        def copy_sources!(old_article, new_entry)
+          old_article.entries.each do |old_entry|
+            old_entry.web_sources.each do |ws|
+              EntryWebSource.find_or_create_by!(entry: new_entry, web_source: ws)
+            end
+            old_entry.file_sources.each do |fs|
+              EntryFileSource.find_or_create_by!(entry: new_entry, file_source: fs)
+            end
+          end
+        end
+
+        def copy_keywords!(old_article, new_article)
+          old_article.keywords.each do |keyword|
+            ArticleKeyword.find_or_create_by!(article: new_article, keyword: keyword) do |ak|
+              ak.created_at = Time.now
+            end
           end
         end
       end
