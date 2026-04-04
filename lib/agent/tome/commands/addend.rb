@@ -57,37 +57,10 @@ module Agent
             raise ValidationError, "At least one field must be substantively present"
           end
 
-          validate_keywords!(keywords) if keywords.any?
-          validate_web_sources!(web_sources) if web_sources.any?
-          validate_file_sources!(file_sources) if file_sources.any?
-          validate_related_ids!(input["related_article_ids"]) if input.key?("related_article_ids")
-        end
-
-        def validate_keywords!(keywords)
-          keywords.each do |kw|
-            raise ValidationError, "keyword must be a non-empty string" unless kw.is_a?(String) && !kw.strip.empty?
-          end
-        end
-
-        def validate_web_sources!(sources)
-          sources.each do |src|
-            raise ValidationError, "invalid URL: #{src["url"]}" unless UrlNormalizer.valid?(src["url"].to_s)
-          end
-        end
-
-        def validate_file_sources!(sources)
-          sources.each do |src|
-            raise ValidationError, "file_source path cannot be empty" if src["path"].to_s.strip.empty?
-            raise ValidationError, "file_source system_name cannot be empty" if src["system_name"].to_s.strip.empty?
-          end
-        end
-
-        def validate_related_ids!(ids)
-          return unless ids
-
-          ids.each do |id|
-            raise ValidationError, "Referenced article not found: #{id}" unless Article.exists?(global_id: id)
-          end
+          InputValidator.validate_keywords!(keywords) if keywords.any?
+          InputValidator.validate_web_sources!(web_sources) if web_sources.any?
+          InputValidator.validate_file_sources!(file_sources) if file_sources.any?
+          InputValidator.validate_related_ids!(input["related_article_ids"]) if input.key?("related_article_ids")
         end
 
       end
