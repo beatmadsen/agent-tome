@@ -6,24 +6,22 @@ class RelatedMultipleArraysTest < Minitest::Test
 
   def test_article_appears_in_shared_keywords_and_references_to
     # Create article A with keyword "ruby"
-    result_a = tome.create(description: "Article A", body: "Body A", keywords: ["ruby"])
-    assert result_a.success?, "Setup A failed: #{result_a.error_message}"
+    result_a = create_article!(description: "Article A", body: "Body A", keywords: ["ruby"])
     id_a = result_a.article_global_id
 
     # Create article B with keyword "ruby" AND an ArticleReference from A to B
-    result_b = tome.create(
+    result_b = create_article!(
       description: "Article B",
       body: "Body B",
       keywords: ["ruby"],
       related_article_ids: [id_a]
     )
-    assert result_b.success?, "Setup B failed: #{result_b.error_message}"
     id_b = result_b.article_global_id
 
     # related on A: B shares keyword "ruby" with A, and B references A
     # So A should appear in B's shared_keywords AND B's references_to
     result = tome.related(id_b)
-    assert result.success?, "Related failed: #{result.error_message}"
+    assert_success result, "Related failed: #{result.error_message}"
 
     shared_ids = result.data["shared_keywords"].map { |r| r["global_id"] }
     references_to_ids = result.data["references_to"].map { |r| r["global_id"] }

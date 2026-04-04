@@ -5,21 +5,19 @@ class RelatedReferencedByTest < Minitest::Test
   include TomeDsl
 
   def test_referenced_by_includes_source_article
-    result_b = tome.create(description: "Article B", body: "Body B")
-    assert result_b.success?, "Setup failed: #{result_b.error_message}"
+    result_b = create_article!(description: "Article B", body: "Body B")
     id_b = result_b.article_global_id
 
     # A is source, B is target
-    result_a = tome.create(
+    result_a = create_article!(
       description: "Article A",
       body: "Body A",
       related_article_ids: [id_b]
     )
-    assert result_a.success?, "Setup failed: #{result_a.error_message}"
     id_a = result_a.article_global_id
 
     result = tome.related(id_b)
-    assert result.success?, "Related failed: #{result.error_message}"
+    assert_success result, "Related failed: #{result.error_message}"
 
     referenced_by = result.data["referenced_by"]
     assert_instance_of Array, referenced_by

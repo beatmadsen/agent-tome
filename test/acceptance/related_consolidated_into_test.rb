@@ -6,19 +6,18 @@ class RelatedConsolidatedIntoTest < Minitest::Test
 
   def test_consolidated_into_includes_new_article
     # Create article O (original), then consolidate so O gets a new ID
-    result_o = tome.create(description: "Article O original", body: "Original body")
-    assert result_o.success?, "Setup failed: #{result_o.error_message}"
+    result_o = create_article!(description: "Article O original", body: "Original body")
     original_id = result_o.article_global_id
 
     # Consolidate — new article takes original_id, old article gets a new ID
     con_result = tome.consolidate(original_id, body: "Consolidated content")
-    assert con_result.success?, "Consolidate failed: #{con_result.error_message}"
+    assert_success con_result, "Consolidate failed: #{con_result.error_message}"
     new_id = con_result.new_article_global_id
     old_id = con_result.old_article_global_id
 
     # related on the OLD article should have consolidated_into including the new article
     result = tome.related(old_id)
-    assert result.success?, "Related failed: #{result.error_message}"
+    assert_success result, "Related failed: #{result.error_message}"
 
     consolidated_into = result.data["consolidated_into"]
     assert_instance_of Array, consolidated_into

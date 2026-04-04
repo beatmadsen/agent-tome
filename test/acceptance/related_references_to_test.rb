@@ -5,21 +5,19 @@ class RelatedReferencesToTest < Minitest::Test
   include TomeDsl
 
   def test_references_to_includes_target_article
-    result_a = tome.create(description: "Article A", body: "Body A")
-    assert result_a.success?, "Setup failed: #{result_a.error_message}"
+    result_a = create_article!(description: "Article A", body: "Body A")
     id_a = result_a.article_global_id
 
-    result_b = tome.create(
+    result_b = create_article!(
       description: "Article B",
       body: "Body B",
       keywords: ["ruby"],
       related_article_ids: [id_a]
     )
-    assert result_b.success?, "Setup failed: #{result_b.error_message}"
     id_b = result_b.article_global_id
 
     result = tome.related(id_b)
-    assert result.success?, "Related failed: #{result.error_message}"
+    assert_success result, "Related failed: #{result.error_message}"
 
     references_to = result.data["references_to"]
     assert_instance_of Array, references_to

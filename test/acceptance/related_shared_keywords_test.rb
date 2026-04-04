@@ -5,24 +5,22 @@ class RelatedSharedKeywordsTest < Minitest::Test
   include TomeDsl
 
   def test_related_via_shared_keywords
-    result_a = tome.create(
+    result_a = create_article!(
       description: "Article A",
       body: "Body A",
       keywords: ["ruby", "gc", "performance"]
     )
-    assert result_a.success?, "Setup failed: #{result_a.error_message}"
     id_a = result_a.article_global_id
 
-    result_b = tome.create(
+    result_b = create_article!(
       description: "Article B",
       body: "Body B",
       keywords: ["ruby", "gc", "python"]
     )
-    assert result_b.success?, "Setup failed: #{result_b.error_message}"
     id_b = result_b.article_global_id
 
     result = tome.related(id_a)
-    assert result.success?, "Related failed: #{result.error_message}"
+    assert_success result, "Related failed: #{result.error_message}"
 
     shared = result.data["shared_keywords"]
     assert_instance_of Array, shared

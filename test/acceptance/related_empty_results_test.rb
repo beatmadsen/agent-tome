@@ -5,12 +5,11 @@ class RelatedEmptyResultsTest < Minitest::Test
   include TomeDsl
 
   def test_all_arrays_present_and_empty_when_no_relations
-    result = tome.create(description: "Isolated article", body: "No relations here.")
-    assert result.success?, "Setup failed: #{result.error_message}"
+    result = create_article!(description: "Isolated article", body: "No relations here.")
     id = result.article_global_id
 
     result = tome.related(id)
-    assert result.success?, "Related failed: #{result.error_message}"
+    assert_success result, "Related failed: #{result.error_message}"
 
     data = result.data
     assert_equal [], data["shared_keywords"]

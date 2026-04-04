@@ -6,44 +6,43 @@ class NoInternalIdsAllCommandsTest < Minitest::Test
   include TomeDsl
 
   def test_all_commands_output_no_integer_id_fields
-    created = tome.create(
+    created = create_article!(
       description: "Article for AT-10.6 ID check",
       body: "Initial content.",
       keywords: ["ruby", "testing"],
       web_sources: [{ url: "https://example.com/at-10-6", title: "Test Source" }],
       file_sources: [{ path: "/tmp/at-10-6.txt", system_name: "test-machine" }]
     )
-    assert created.success?, "create failed: #{created.error_message}"
     refute contains_integer_id?(created.data), "create output contains integer id: #{created.data.inspect}"
 
     article_id = created.article_global_id
 
     addend_result = tome.addend(article_id, body: "Addendum content.", keywords: ["gc"])
-    assert addend_result.success?, "addend failed: #{addend_result.error_message}"
+    assert_success addend_result, "addend failed: #{addend_result.error_message}"
     refute contains_integer_id?(addend_result.data), "addend output contains integer id: #{addend_result.data.inspect}"
 
     search_result = tome.search(["ruby"])
-    assert search_result.success?, "search failed: #{search_result.error_message}"
+    assert_success search_result, "search failed: #{search_result.error_message}"
     refute contains_integer_id?(search_result.data), "search output contains integer id: #{search_result.data.inspect}"
 
     fetch_result = tome.fetch(article_id)
-    assert fetch_result.success?, "fetch failed: #{fetch_result.error_message}"
+    assert_success fetch_result, "fetch failed: #{fetch_result.error_message}"
     refute contains_integer_id?(fetch_result.data), "fetch output contains integer id: #{fetch_result.data.inspect}"
 
     related_result = tome.related(article_id)
-    assert related_result.success?, "related failed: #{related_result.error_message}"
+    assert_success related_result, "related failed: #{related_result.error_message}"
     refute contains_integer_id?(related_result.data), "related output contains integer id: #{related_result.data.inspect}"
 
     keywords_result = tome.keywords("rub")
-    assert keywords_result.success?, "keywords failed: #{keywords_result.error_message}"
+    assert_success keywords_result, "keywords failed: #{keywords_result.error_message}"
     refute contains_integer_id?(keywords_result.data), "keywords output contains integer id: #{keywords_result.data.inspect}"
 
     source_result = tome.source_search("https://example.com/at-10-6")
-    assert source_result.success?, "source-search failed: #{source_result.error_message}"
+    assert_success source_result, "source-search failed: #{source_result.error_message}"
     refute contains_integer_id?(source_result.data), "source-search output contains integer id: #{source_result.data.inspect}"
 
     consolidate_result = tome.consolidate(article_id, body: "Consolidated content.")
-    assert consolidate_result.success?, "consolidate failed: #{consolidate_result.error_message}"
+    assert_success consolidate_result, "consolidate failed: #{consolidate_result.error_message}"
     refute contains_integer_id?(consolidate_result.data), "consolidate output contains integer id: #{consolidate_result.data.inspect}"
   end
 
