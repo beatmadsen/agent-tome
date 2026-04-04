@@ -12,6 +12,7 @@ require_relative "tome/config"
 require_relative "tome/database"
 require_relative "tome/global_id"
 require_relative "tome/url_normalizer"
+require_relative "tome/keyword_normalizer"
 
 module Agent
   module Tome

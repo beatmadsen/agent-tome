@@ -1,5 +1,3 @@
-require "active_support/core_ext/string/inflections"
-
 module Agent
   module Tome
     module Commands
@@ -12,7 +10,7 @@ module Agent
         def call
           raise ValidationError, "At least one keyword is required" if @keywords.empty?
 
-          normalized = @keywords.map { |kw| normalize_keyword(kw) }
+          normalized = @keywords.map { |kw| KeywordNormalizer.call(kw) }
           keyword_ids = Keyword.where(term: normalized).pluck(:id)
 
           return { "results" => [] } if keyword_ids.empty?
@@ -51,11 +49,6 @@ module Agent
           }
         end
 
-        def normalize_keyword(kw)
-          words = kw.downcase.split("-")
-          words[-1] = ActiveSupport::Inflector.singularize(words[-1])
-          words.join("-")
-        end
       end
     end
   end

@@ -1,5 +1,3 @@
-require "active_support/core_ext/string/inflections"
-
 module Agent
   module Tome
     module Commands
@@ -94,7 +92,7 @@ module Agent
 
         def process_keywords!(article, keywords)
           keywords.each do |kw|
-            normalized = normalize_keyword(kw)
+            normalized = KeywordNormalizer.call(kw)
             keyword = Keyword.find_or_create_by!(term: normalized) do |k|
               k.created_at = Time.now
             end
@@ -147,11 +145,6 @@ module Agent
           end
         end
 
-        def normalize_keyword(kw)
-          words = kw.downcase.split("-")
-          words[-1] = ActiveSupport::Inflector.singularize(words[-1])
-          words.join("-")
-        end
       end
     end
   end
