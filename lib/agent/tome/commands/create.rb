@@ -22,7 +22,7 @@ module Agent
             KeywordLinker.call(article, input["keywords"] || [])
             web_source_ids = WebSourceLinker.call(entry, input["web_sources"] || [])
             file_source_ids = FileSourceLinker.call(entry, input["file_sources"] || [])
-            process_related_articles!(article, input["related_article_ids"] || [])
+            RelatedArticleLinker.call(article, input["related_article_ids"] || [])
 
             result = {
               "article_global_id" => article.global_id,
@@ -95,20 +95,6 @@ module Agent
 
           ids.each do |id|
             raise ValidationError, "Referenced article not found: #{id}" unless Article.exists?(global_id: id)
-          end
-        end
-
-        def process_related_articles!(article, related_ids)
-          related_ids.each do |target_id|
-            raise ValidationError, "An article cannot reference itself" if target_id == article.global_id
-
-            target = Article.find_by!(global_id: target_id)
-            ArticleReference.find_or_create_by!(
-              source_article: article,
-              target_article: target
-            ) do |ref|
-              ref.created_at = Time.now
-            end
           end
         end
 
