@@ -5,15 +5,14 @@ class KeywordNormalisationConsistencyTest < Minitest::Test
   include TomeDsl
 
   def test_keyword_normalised_via_create_is_findable_via_search
-    result = tome.create(
+    result = create_article!(
       description: "Created with mixed-case plural",
       body: "body",
       keywords: ["Multi-Word-APIs"]
     )
-    assert result.success?, result.error_message
 
     search = tome.search(["multi-word-apis"])
-    assert search.success?, search.error_message
+    assert_success search
     ids = search.data["results"].map { |r| r["global_id"] }
     assert_includes ids, result.data["article_global_id"],
       "Article created with 'Multi-Word-APIs' should match search for 'multi-word-apis'"

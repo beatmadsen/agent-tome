@@ -5,22 +5,20 @@ class FileSourceDeduplicationTest < Minitest::Test
   include TomeDsl
 
   def test_same_path_and_system_name_reuses_existing_file_source
-    result_a = tome.create(
+    result_a = create_article!(
       description: "Article A",
       body: "Content A",
       file_sources: [{ path: "/home/user/doc.pdf", system_name: "work-laptop" }]
     )
-    assert result_a.success?, result_a.error_message
 
     original_fs_id = result_a.data["file_source_global_ids"].first
-    assert_match BASE58_PATTERN, original_fs_id
+    assert_global_id original_fs_id
 
-    result_b = tome.create(
+    result_b = create_article!(
       description: "Article B",
       body: "Content B",
       file_sources: [{ path: "/home/user/doc.pdf", system_name: "work-laptop" }]
     )
-    assert result_b.success?, result_b.error_message
 
     reused_fs_id = result_b.data["file_source_global_ids"].first
 

@@ -7,7 +7,7 @@ class KeywordsNoMatchTest < Minitest::Test
   def test_no_matching_keywords
     result = tome.keywords("zzz")
 
-    assert result.success?
+    assert_success result
     assert_empty result.keywords
   end
 end

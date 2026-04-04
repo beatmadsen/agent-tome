@@ -6,15 +6,15 @@ class KeywordsPrefixTest < Minitest::Test
   # AT-8.1: Keywords matching a prefix/substring
   # The implementation uses substring matching, so "guru" is included when searching "ru".
   def test_keywords_matching_substring
-    tome.create(description: "A", body: "x", keywords: ["ruby"])
-    tome.create(description: "B", body: "x", keywords: ["rust"])
-    tome.create(description: "C", body: "x", keywords: ["python"])
-    tome.create(description: "D", body: "x", keywords: ["runtime"])
-    tome.create(description: "E", body: "x", keywords: ["guru"])
+    create_article!(description: "A", body: "x", keywords: ["ruby"])
+    create_article!(description: "B", body: "x", keywords: ["rust"])
+    create_article!(description: "C", body: "x", keywords: ["python"])
+    create_article!(description: "D", body: "x", keywords: ["runtime"])
+    create_article!(description: "E", body: "x", keywords: ["guru"])
 
     result = tome.keywords("ru")
 
-    assert result.success?
+    assert_success result
     keywords = result.keywords
     assert_includes keywords, "ruby"
     assert_includes keywords, "rust"
