@@ -1,5 +1,16 @@
 ## [Unreleased]
 
+## [1.0.1] - 2026-04-05
+
+### Changed
+
+- Extract KeywordNormalizer to eliminate triple duplication across Create, Addend, and Consolidate.
+- Extract KeywordLinker, WebSourceLinker, FileSourceLinker, and RelatedArticleLinker, each with unit tests, removing duplicated logic from Create and Addend.
+- Extract InputValidator with unit tests, wiring Create and Addend to share validation.
+- Extract ArticleFormatter for shared article summary formatting.
+- Refactor Consolidate.call into named private methods.
+- Add test DSL helpers and migrate all acceptance tests to use them.
+
 ## [1.0.0] - 2026-04-03
 
 ### Added
@@ -18,5 +29,6 @@
 - **CLI**: `agent-tome` executable with JSON stdin/stdout interface, exit code 0 on success and non-zero on error.
 - **Claude Code skills**: Companion `tome-lookup` and `tome-capture` skills for AI agent integration.
 
-[Unreleased]: https://github.com/beatmadsen/agent-tome/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/beatmadsen/agent-tome/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/beatmadsen/agent-tome/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/beatmadsen/agent-tome/releases/tag/v1.0.0
