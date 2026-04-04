@@ -5,18 +5,17 @@ class AddendDuplicateKeywordTest < Minitest::Test
   include TomeDsl
 
   def test_duplicate_keyword_on_addendum_succeeds_without_duplicate_row
-    create_result = tome.create(
+    create_result = create_article!(
       description: "How Ruby GC works",
       body: "Ruby uses a mark-and-sweep garbage collector.",
       keywords: ["ruby"]
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     article_global_id = create_result.article_global_id
 
     result = tome.addend(article_global_id, keywords: ["ruby"])
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
-    assert_match BASE58_PATTERN, result.entry_global_id
+    assert_success result
+    assert_global_id result.entry_global_id
 
     article = Agent::Tome::Article.find_by(global_id: article_global_id)
     keyword_terms = article.keywords.pluck(:term)

@@ -5,17 +5,15 @@ class AddendRelatedArticleIdsTest < Minitest::Test
   include TomeDsl
 
   def test_addend_creates_article_reference
-    article_a = tome.create(description: "Article A", body: "Content A")
-    assert article_a.success?, article_a.error_message
+    article_a = create_article!(description: "Article A", body: "Content A")
     a_id = article_a.data["article_global_id"]
 
-    article_b = tome.create(description: "Article B", body: "Content B")
-    assert article_b.success?, article_b.error_message
+    article_b = create_article!(description: "Article B", body: "Content B")
     b_id = article_b.data["article_global_id"]
 
     result = tome.addend(a_id, related_article_ids: [b_id])
 
-    assert result.success?, result.error_message
+    assert_success result
 
     ref = Agent::Tome::ArticleReference.find_by(
       source_article: Agent::Tome::Article.find_by!(global_id: a_id),

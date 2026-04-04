@@ -10,7 +10,7 @@ class KeywordDeduplicationTest < Minitest::Test
       body: "Ruby is a dynamic language.",
       keywords: ["ruby"]
     )
-    assert result1.success?, "Expected first create to succeed: #{result1.error_message}"
+    assert_success result1, "Expected first create to succeed: #{result1.error_message}"
 
     ruby_keyword_count_before = Agent::Tome::Keyword.where(term: "ruby").count
     assert_equal 1, ruby_keyword_count_before, "Expected exactly one 'ruby' keyword row after first create"
@@ -20,7 +20,7 @@ class KeywordDeduplicationTest < Minitest::Test
       body: "Ruby also supports metaprogramming.",
       keywords: ["Ruby"]
     )
-    assert result2.success?, "Expected second create to succeed: #{result2.error_message}"
+    assert_success result2, "Expected second create to succeed: #{result2.error_message}"
 
     ruby_keyword_count_after = Agent::Tome::Keyword.where(term: "ruby").count
     assert_equal 1, ruby_keyword_count_after, "Expected still exactly one 'ruby' keyword row (no duplicate)"

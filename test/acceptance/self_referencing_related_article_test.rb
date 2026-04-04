@@ -5,8 +5,7 @@ class SelfReferencingRelatedArticleTest < Minitest::Test
   include TomeDsl
 
   def test_addend_with_self_reference_is_rejected
-    create_result = tome.create(description: "Article A", body: "Content of A")
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
+    create_result = create_article!(description: "Article A", body: "Content of A")
 
     article_id = create_result.article_global_id
 

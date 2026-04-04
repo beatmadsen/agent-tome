@@ -5,8 +5,7 @@ class RelatedArticleIdsTest < Minitest::Test
   include TomeDsl
 
   def test_creates_article_reference_for_related_article_id
-    existing = tome.create(description: "Existing article", body: "Some content")
-    assert existing.success?, existing.error_message
+    existing = create_article!(description: "Existing article", body: "Some content")
     existing_id = existing.data["article_global_id"]
 
     result = tome.create(
@@ -15,7 +14,7 @@ class RelatedArticleIdsTest < Minitest::Test
       related_article_ids: [existing_id]
     )
 
-    assert result.success?, result.error_message
+    assert_success result
 
     assert_equal 1, Agent::Tome::ArticleReference.count,
                  "Expected one article_references row to be created"

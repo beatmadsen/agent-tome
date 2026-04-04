@@ -12,7 +12,7 @@ class DescriptionBoundaryTest < Minitest::Test
       body: "Some content"
     )
 
-    assert result.success?, "Expected success but got: #{result.error_message}"
-    assert_match(/\A[1-9A-HJ-NP-Za-km-z]{7}\z/, result.article_global_id)
+    assert_success result
+    assert_global_id result.article_global_id
   end
 end

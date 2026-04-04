@@ -5,12 +5,10 @@ class AddendAllFieldsTest < Minitest::Test
   include TomeDsl
 
   def test_addendum_with_all_fields_processes_everything
-    create_a = tome.create(description: "Article A", body: "Body of A.")
-    assert create_a.success?, "Setup A failed: #{create_a.error_message}"
+    create_a = create_article!(description: "Article A", body: "Body of A.")
     article_a_id = create_a.article_global_id
 
-    create_b = tome.create(description: "Article B", body: "Body of B.")
-    assert create_b.success?, "Setup B failed: #{create_b.error_message}"
+    create_b = create_article!(description: "Article B", body: "Body of B.")
     article_b_id = create_b.article_global_id
 
     result = tome.addend(
@@ -22,9 +20,9 @@ class AddendAllFieldsTest < Minitest::Test
       related_article_ids: [article_b_id]
     )
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
-    assert_match BASE58_PATTERN, result.entry_global_id,
-                 "entry_global_id should be a 7-character base58 string"
+    assert_success result
+    assert_global_id result.entry_global_id,
+                     "entry_global_id should be a 7-character base58 string"
 
     article_a = Agent::Tome::Article.find_by(global_id: article_a_id)
 

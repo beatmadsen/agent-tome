@@ -23,6 +23,24 @@ module TomeDsl
     @tome_driver
   end
 
+  def assert_success(result, message = nil)
+    msg = message || "Expected success but got error: #{result.error_message}"
+    assert result.success?, msg
+  end
+
+  def assert_global_id(value, message = nil)
+    msg = message || "Expected a 7-character base58 global ID, got #{value.inspect}"
+    assert_match BASE58_PATTERN, value, msg
+  end
+
+  def create_article!(**opts)
+    opts[:description] ||= "Test article"
+    opts[:body] ||= "Test body"
+    result = tome.create(**opts)
+    assert result.success?, "create_article! failed: #{result.error_message}"
+    result
+  end
+
   private
 
   def build_driver

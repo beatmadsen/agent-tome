@@ -17,21 +17,21 @@ class GlobalIdsBase58Test < Minitest::Test
       ]
     )
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
+    assert_success result
 
-    assert_match BASE58_PATTERN, result.article_global_id,
-                 "article_global_id must be a 7-character base58 string"
-    assert_match BASE58_PATTERN, result.entry_global_id,
-                 "entry_global_id must be a 7-character base58 string"
+    assert_global_id result.article_global_id,
+                     "article_global_id must be a 7-character base58 string"
+    assert_global_id result.entry_global_id,
+                     "entry_global_id must be a 7-character base58 string"
 
     result.data["web_source_global_ids"].each do |gid|
-      assert_match BASE58_PATTERN, gid,
-                   "web_source global_id '#{gid}' must be a 7-character base58 string"
+      assert_global_id gid,
+                       "web_source global_id '#{gid}' must be a 7-character base58 string"
     end
 
     result.data["file_source_global_ids"].each do |gid|
-      assert_match BASE58_PATTERN, gid,
-                   "file_source global_id '#{gid}' must be a 7-character base58 string"
+      assert_global_id gid,
+                       "file_source global_id '#{gid}' must be a 7-character base58 string"
     end
   end
 end

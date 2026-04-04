@@ -17,14 +17,14 @@ class ArticleWithAllOptionalFieldsTest < Minitest::Test
       ]
     )
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
-    assert_match BASE58_PATTERN, result.article_global_id
-    assert_match BASE58_PATTERN, result.entry_global_id
+    assert_success result
+    assert_global_id result.article_global_id
+    assert_global_id result.entry_global_id
 
     assert_equal 1, result.data["web_source_global_ids"].length
     assert_equal 1, result.data["file_source_global_ids"].length
-    assert_match BASE58_PATTERN, result.data["web_source_global_ids"].first
-    assert_match BASE58_PATTERN, result.data["file_source_global_ids"].first
+    assert_global_id result.data["web_source_global_ids"].first
+    assert_global_id result.data["file_source_global_ids"].first
 
     # Keywords are downcased and singularised
     expected_terms = %w[concurrency ruby thread]

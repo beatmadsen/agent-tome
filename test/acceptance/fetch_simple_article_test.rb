@@ -5,18 +5,17 @@ class FetchSimpleArticleTest < Minitest::Test
   include TomeDsl
 
   def test_fetches_article_with_expected_fields
-    create_result = tome.create(
+    create_result = create_article!(
       description: "How Ruby GC works",
       body: "Ruby uses a mark-and-sweep garbage collector.",
       keywords: ["ruby"]
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     article_global_id = create_result.article_global_id
     entry_global_id = create_result.entry_global_id
 
     result = tome.fetch(article_global_id)
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
+    assert_success result
     assert_equal article_global_id, result.global_id
     assert_equal "How Ruby GC works", result.description
     assert_match(/\A\d{4}-\d{2}-\d{2}T/, result.created_at)

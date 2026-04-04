@@ -6,13 +6,12 @@ class ConsolateCopiesSourcesTest < Minitest::Test
 
   def test_consolidation_copies_all_sources_from_old_entries_to_new_entry
     # Create article with a web source and file source on the first entry
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Article with sources across entries",
       body: "First entry content.",
       web_sources: [{ url: "https://example.com/a", title: "Source A" }],
       file_sources: [{ path: "/docs/a.pdf", system_name: "laptop" }]
     )
-    assert create_result.success?, "Create failed: #{create_result.error_message}"
     article_id = create_result.article_global_id
 
     # Add a second entry with another web source

@@ -5,11 +5,10 @@ class AddendMetadataOnlyTest < Minitest::Test
   include TomeDsl
 
   def test_addendum_with_only_web_source_creates_null_body_entry
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Ruby concurrency overview",
       body: "Ruby has threads and fibers."
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     article_global_id = create_result.article_global_id
 
     result = tome.addend(
@@ -17,9 +16,9 @@ class AddendMetadataOnlyTest < Minitest::Test
       web_sources: [{ url: "https://example.com/new-source", title: "New" }]
     )
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
-    assert_match BASE58_PATTERN, result.entry_global_id,
-                 "entry_global_id should be a 7-character base58 string"
+    assert_success result
+    assert_global_id result.entry_global_id,
+                     "entry_global_id should be a 7-character base58 string"
 
     article = Agent::Tome::Article.find_by(global_id: article_global_id)
     new_entry = article.entries.find_by(global_id: result.entry_global_id)

@@ -8,34 +8,33 @@ class OutputJsonConventionsTest < Minitest::Test
 
   def test_create_success_returns_hash_data
     result = tome.create(description: "JSON output check", body: "Content for JSON test.")
-    assert result.success?, "Expected create to succeed: #{result.error_message}"
+    assert_success result, "Expected create to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "create success must return Hash data"
   end
 
   def test_fetch_success_returns_hash_data
-    created = tome.create(description: "Article to fetch", body: "Body content.")
-    assert created.success?
+    created = create_article!(description: "Article to fetch", body: "Body content.")
 
     result = tome.fetch(created.article_global_id)
-    assert result.success?, "Expected fetch to succeed: #{result.error_message}"
+    assert_success result, "Expected fetch to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "fetch success must return Hash data"
   end
 
   def test_search_success_returns_hash_data
     result = tome.search(["ruby"])
-    assert result.success?, "Expected search to succeed: #{result.error_message}"
+    assert_success result, "Expected search to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "search success must return Hash data"
   end
 
   def test_keywords_success_returns_hash_data
     result = tome.keywords("rub")
-    assert result.success?, "Expected keywords to succeed: #{result.error_message}"
+    assert_success result, "Expected keywords to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "keywords success must return Hash data"
   end
 
   def test_source_search_success_returns_hash_data
     result = tome.source_search("https://example.com/json-check")
-    assert result.success?, "Expected source-search to succeed: #{result.error_message}"
+    assert_success result, "Expected source-search to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "source-search success must return Hash data"
   end
 
@@ -56,29 +55,26 @@ class OutputJsonConventionsTest < Minitest::Test
   end
 
   def test_related_success_returns_hash_data
-    created = tome.create(description: "Article for related check", body: "Body.")
-    assert created.success?
+    created = create_article!(description: "Article for related check", body: "Body.")
 
     result = tome.related(created.article_global_id)
-    assert result.success?, "Expected related to succeed: #{result.error_message}"
+    assert_success result, "Expected related to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "related success must return Hash data"
   end
 
   def test_addend_success_returns_hash_data
-    created = tome.create(description: "Article for addend JSON check", body: "Initial body.")
-    assert created.success?
+    created = create_article!(description: "Article for addend JSON check", body: "Initial body.")
 
     result = tome.addend(created.article_global_id, body: "Addendum content.")
-    assert result.success?, "Expected addend to succeed: #{result.error_message}"
+    assert_success result, "Expected addend to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "addend success must return Hash data"
   end
 
   def test_consolidate_success_returns_hash_data
-    created = tome.create(description: "Article for consolidate JSON check", body: "Initial body.")
-    assert created.success?
+    created = create_article!(description: "Article for consolidate JSON check", body: "Initial body.")
 
     result = tome.consolidate(created.article_global_id, body: "Consolidated content.")
-    assert result.success?, "Expected consolidate to succeed: #{result.error_message}"
+    assert_success result, "Expected consolidate to succeed: #{result.error_message}"
     assert_instance_of Hash, result.data, "consolidate success must return Hash data"
   end
 end

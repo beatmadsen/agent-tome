@@ -6,8 +6,7 @@ class AddendEmptyTest < Minitest::Test
 
   def setup
     super
-    create_result = tome.create(description: "An article", body: "Initial content.")
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
+    create_result = create_article!(description: "An article", body: "Initial content.")
     @article_id = create_result.article_global_id
   end
 

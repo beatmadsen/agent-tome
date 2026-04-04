@@ -10,12 +10,12 @@ class MinimalArticleCreationTest < Minitest::Test
       body: "Ruby uses a mark-and-sweep garbage collector."
     )
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
+    assert_success result
 
-    assert_match BASE58_PATTERN, result.article_global_id,
-                 "article_global_id should be a 7-character base58 string"
-    assert_match BASE58_PATTERN, result.entry_global_id,
-                 "entry_global_id should be a 7-character base58 string"
+    assert_global_id result.article_global_id,
+                     "article_global_id should be a 7-character base58 string"
+    assert_global_id result.entry_global_id,
+                     "entry_global_id should be a 7-character base58 string"
     refute_equal result.article_global_id, result.entry_global_id,
                  "article_global_id and entry_global_id should be different"
 

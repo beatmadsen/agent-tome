@@ -6,20 +6,19 @@ class FetchConsolidatedArticleTest < Minitest::Test
 
   def test_fetch_consolidated_article_includes_consolidated_from
     # Create an article and add an addendum
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Ruby GC internals",
       body: "Mark and sweep basics.",
       keywords: ["ruby", "gc"]
     )
-    assert create_result.success?, "Setup failed: #{create_result.error_message}"
     original_id = create_result.article_global_id
 
     addend_result = tome.addend(original_id, body: "Generational GC added in 2.1.")
-    assert addend_result.success?, "Addend failed: #{addend_result.error_message}"
+    assert_success addend_result, "Addend failed: #{addend_result.error_message}"
 
     # Consolidate
     consolidate_result = tome.consolidate(original_id, body: "Consolidated: Ruby uses generational mark-and-sweep GC.")
-    assert consolidate_result.success?, "Consolidate failed: #{consolidate_result.error_message}"
+    assert_success consolidate_result, "Consolidate failed: #{consolidate_result.error_message}"
 
     new_article_id = consolidate_result.new_article_global_id
     old_article_id = consolidate_result.old_article_global_id
@@ -29,7 +28,7 @@ class FetchConsolidatedArticleTest < Minitest::Test
 
     # Fetch the new consolidated article via the original ID
     fetch_result = tome.fetch(original_id)
-    assert fetch_result.success?, "Fetch failed: #{fetch_result.error_message}"
+    assert_success fetch_result, "Fetch failed: #{fetch_result.error_message}"
 
     data = fetch_result.data
     assert_equal original_id, data["global_id"]
@@ -47,14 +46,13 @@ class FetchConsolidatedArticleTest < Minitest::Test
   end
 
   def test_fetch_non_consolidated_article_has_no_consolidated_from
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Plain article",
       body: "Some content."
     )
-    assert create_result.success?
 
     fetch_result = tome.fetch(create_result.article_global_id)
-    assert fetch_result.success?
+    assert_success fetch_result
 
     data = fetch_result.data
     assert_nil data["consolidated_from"], "consolidated_from should not be present for a plain article"

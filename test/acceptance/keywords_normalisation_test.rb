@@ -11,7 +11,7 @@ class KeywordsNormalisationTest < Minitest::Test
       keywords: ["Processes", "concurrent-processes", "Web-Sources", "THREAD"]
     )
 
-    assert result.success?, "Expected success but got error: #{result.error_message}"
+    assert_success result
 
     expected_terms = %w[process concurrent-process web-source thread]
     article = Agent::Tome::Article.find_by!(global_id: result.article_global_id)

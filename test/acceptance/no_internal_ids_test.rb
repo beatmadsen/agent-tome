@@ -13,7 +13,7 @@ class NoInternalIdsTest < Minitest::Test
       file_sources: [{ path: "/tmp/id-check.txt", system_name: "test-machine" }]
     )
 
-    assert result.success?, "Expected success but got: #{result.error_message}"
+    assert_success result
     refute contains_integer_id?(result.data),
            "Output must not contain any integer 'id' field, got: #{result.data.inspect}"
   end

@@ -10,7 +10,7 @@ class WebSourceUrlNormalisationTest < Minitest::Test
       body: "Some content",
       web_sources: [{ url: "https://example.com/search?q=ruby&page=2&utm_campaign=test" }]
     )
-    assert result.success?, result.error_message
+    assert_success result
 
     stored_url = Agent::Tome::WebSource.first.url
     assert_equal "https://example.com/search?q=ruby&page=2", stored_url,
