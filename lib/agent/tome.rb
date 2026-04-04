@@ -14,6 +14,7 @@ require_relative "tome/global_id"
 require_relative "tome/url_normalizer"
 require_relative "tome/keyword_normalizer"
 require_relative "tome/keyword_linker"
+require_relative "tome/web_source_linker"
 
 module Agent
   module Tome
