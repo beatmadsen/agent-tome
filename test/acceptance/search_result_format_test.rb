@@ -5,7 +5,7 @@ class SearchResultFormatTest < Minitest::Test
   include TomeDsl
 
   def test_search_result_contains_exactly_required_fields_with_correct_types
-    tome.create(description: "Ruby GC internals", body: "body", keywords: ["ruby", "gc"])
+    create_article!(description: "Ruby GC internals", body: "body", keywords: ["ruby", "gc"])
 
     result = tome.search(["ruby"])
 
