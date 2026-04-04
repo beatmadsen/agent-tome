@@ -5,7 +5,7 @@ class SourceSearchOutputFormatTest < Minitest::Test
   include TomeDsl
 
   def test_source_search_result_contains_exactly_required_fields
-    tome.create(
+    create_article!(
       description: "Ruby concurrency article",
       body: "Ruby supports threads and fibers.",
       keywords: ["ruby", "concurrency"],
@@ -14,7 +14,7 @@ class SourceSearchOutputFormatTest < Minitest::Test
 
     result = tome.source_search("https://ruby-doc.org/output-format-test")
 
-    assert result.success?, result.error_message
+    assert_success result
     results = result.results
     assert results.length >= 1, "Expected at least one result"
 
