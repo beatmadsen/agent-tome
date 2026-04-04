@@ -6,23 +6,21 @@ class WorkflowCrossReferencingTest < Minitest::Test
 
   def test_cross_referencing_directional_clarity
     # Step 1: Create article A
-    result_a = tome.create(description: "Article A", body: "Body of article A.")
-    assert result_a.success?, "Create A failed: #{result_a.error_message}"
+    result_a = create_article!(description: "Article A", body: "Body of article A.")
     id_a = result_a.article_global_id
 
     # Step 2: Create article B with related_article_ids pointing to A
     # B is source, A is target in the article_references row
-    result_b = tome.create(
+    result_b = create_article!(
       description: "Article B referencing A",
       body: "Body of article B.",
       related_article_ids: [id_a]
     )
-    assert result_b.success?, "Create B failed: #{result_b.error_message}"
     id_b = result_b.article_global_id
 
     # Step 3: related A — referenced_by includes B, references_to is empty
     result_related_a = tome.related(id_a)
-    assert result_related_a.success?, "Related A failed: #{result_related_a.error_message}"
+    assert_success result_related_a, "Related A failed: #{result_related_a.error_message}"
 
     referenced_by_a = result_related_a.data["referenced_by"].map { |r| r["global_id"] }
     references_to_a = result_related_a.data["references_to"].map { |r| r["global_id"] }
@@ -32,7 +30,7 @@ class WorkflowCrossReferencingTest < Minitest::Test
 
     # Step 4: related B — references_to includes A, referenced_by is empty
     result_related_b = tome.related(id_b)
-    assert result_related_b.success?, "Related B failed: #{result_related_b.error_message}"
+    assert_success result_related_b, "Related B failed: #{result_related_b.error_message}"
 
     references_to_b = result_related_b.data["references_to"].map { |r| r["global_id"] }
     referenced_by_b = result_related_b.data["referenced_by"].map { |r| r["global_id"] }

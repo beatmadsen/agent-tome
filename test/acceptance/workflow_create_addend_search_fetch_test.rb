@@ -6,14 +6,13 @@ class WorkflowCreateAddendSearchFetchTest < Minitest::Test
 
   def test_full_lifecycle
     # Step 1: Create article
-    create_result = tome.create(
+    create_result = create_article!(
       description: "Ruby GC internals",
       body: "Mark and sweep",
       keywords: ["ruby", "gc"]
     )
-    assert create_result.success?, "Create failed: #{create_result.error_message}"
     article_id = create_result.article_global_id
-    assert_match(/\A[1-9A-HJ-NP-Za-km-z]{7}\z/, article_id)
+    assert_global_id article_id
 
     # Step 2: Addend the article
     addend_result = tome.addend(
@@ -21,11 +20,11 @@ class WorkflowCreateAddendSearchFetchTest < Minitest::Test
       body: "Generational GC added in 2.1",
       keywords: ["performance"]
     )
-    assert addend_result.success?, "Addend failed: #{addend_result.error_message}"
+    assert_success addend_result, "Addend failed: #{addend_result.error_message}"
 
     # Step 3: Search for ruby gc — should return article X with matching_keyword_count: 2
     search_result = tome.search(["ruby", "gc"])
-    assert search_result.success?, "Search failed: #{search_result.error_message}"
+    assert_success search_result, "Search failed: #{search_result.error_message}"
 
     results = search_result.results
     matching = results.find { |r| r["global_id"] == article_id }
@@ -34,7 +33,7 @@ class WorkflowCreateAddendSearchFetchTest < Minitest::Test
 
     # Step 4: Fetch article X — should have 2 entries and all 3 keywords
     fetch_result = tome.fetch(article_id)
-    assert fetch_result.success?, "Fetch failed: #{fetch_result.error_message}"
+    assert_success fetch_result, "Fetch failed: #{fetch_result.error_message}"
 
     data = fetch_result.data
     assert_equal article_id, data["global_id"]

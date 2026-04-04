@@ -8,22 +8,20 @@ class WorkflowSourceDeduplicationTest < Minitest::Test
     url = "https://ruby-doc.org/page"
 
     # Step 1: Create article A with the web source
-    result_a = tome.create(
+    result_a = create_article!(
       description: "Article A about Ruby docs",
       body: "First article referencing the Ruby docs page.",
       web_sources: [{ url: url, title: "Ruby Docs" }]
     )
-    assert result_a.success?, "Create A failed: #{result_a.error_message}"
     article_a_id = result_a.article_global_id
     web_source_id_a = result_a.web_source_global_ids.first
 
     # Step 2: Create article B with the same web source URL — same row reused
-    result_b = tome.create(
+    result_b = create_article!(
       description: "Article B also referencing Ruby docs",
       body: "Second article referencing the same Ruby docs page.",
       web_sources: [{ url: url, title: "Ruby Docs Again" }]
     )
-    assert result_b.success?, "Create B failed: #{result_b.error_message}"
     article_b_id = result_b.article_global_id
     web_source_id_b = result_b.web_source_global_ids.first
 
@@ -33,7 +31,7 @@ class WorkflowSourceDeduplicationTest < Minitest::Test
 
     # Step 3: source-search returns both articles A and B
     search_result = tome.source_search(url)
-    assert search_result.success?, "Source search failed: #{search_result.error_message}"
+    assert_success search_result, "Source search failed: #{search_result.error_message}"
 
     result_ids = search_result.results.map { |r| r["global_id"] }
     assert_includes result_ids, article_a_id, "Results should include article A"
