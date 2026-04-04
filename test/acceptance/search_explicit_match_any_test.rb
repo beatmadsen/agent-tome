@@ -5,18 +5,15 @@ class SearchExplicitMatchAnyTest < Minitest::Test
   include TomeDsl
 
   def test_explicit_match_any_returns_same_results_as_default
-    a = tome.create(description: "Article A", body: "body", keywords: ["ruby", "gc"])
-    assert a.success?, a.error_message
+    a = create_article!(description: "Article A", body: "body", keywords: ["ruby", "gc"])
 
-    b = tome.create(description: "Article B", body: "body", keywords: ["ruby", "thread"])
-    assert b.success?, b.error_message
+    b = create_article!(description: "Article B", body: "body", keywords: ["ruby", "thread"])
 
-    c = tome.create(description: "Article C", body: "body", keywords: ["python", "gc"])
-    assert c.success?, c.error_message
+    c = create_article!(description: "Article C", body: "body", keywords: ["python", "gc"])
 
     result = tome.search(["ruby", "gc"], match: "any")
 
-    assert result.success?, result.error_message
+    assert_success result
     results = result.data["results"]
     global_ids = results.map { |r| r["global_id"] }
 

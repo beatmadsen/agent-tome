@@ -22,7 +22,7 @@ class SearchResultsCappedTest < Minitest::Test
 
     result = tome.search(["ruby"])
 
-    assert result.success?, result.error_message
+    assert_success result
     assert result.data["results"].length <= 1000,
            "Expected at most 1000 results, got #{result.data["results"].length}"
   end

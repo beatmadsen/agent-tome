@@ -9,7 +9,7 @@ class SearchResultFormatTest < Minitest::Test
 
     result = tome.search(["ruby"])
 
-    assert result.success?, result.error_message
+    assert_success result
     results = result.data["results"]
     assert results.length >= 1, "Expected at least one result"
 

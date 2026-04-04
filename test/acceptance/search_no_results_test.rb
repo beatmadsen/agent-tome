@@ -7,7 +7,7 @@ class SearchNoResultsTest < Minitest::Test
   def test_search_returns_empty_results_when_no_match
     result = tome.search(["nonexistent-keyword"])
 
-    assert result.success?, result.error_message
+    assert_success result
     assert_equal({ "results" => [] }, result.data)
   end
 end
