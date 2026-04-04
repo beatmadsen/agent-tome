@@ -16,6 +16,7 @@ require_relative "tome/keyword_normalizer"
 require_relative "tome/keyword_linker"
 require_relative "tome/web_source_linker"
 require_relative "tome/file_source_linker"
+require_relative "tome/related_article_linker"
 
 module Agent
   module Tome
