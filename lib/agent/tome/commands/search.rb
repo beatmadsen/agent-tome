@@ -40,13 +40,7 @@ module Agent
         end
 
         def format_result(article)
-          {
-            "global_id" => article.global_id,
-            "description" => article.description,
-            "keywords" => article.keywords.pluck(:term).sort,
-            "matching_keyword_count" => article.matching_keyword_count.to_i,
-            "created_at" => article.created_at.iso8601
-          }
+          ArticleFormatter.summary(article, "matching_keyword_count" => article.matching_keyword_count.to_i)
         end
 
       end

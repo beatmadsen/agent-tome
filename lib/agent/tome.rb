@@ -18,6 +18,7 @@ require_relative "tome/web_source_linker"
 require_relative "tome/file_source_linker"
 require_relative "tome/related_article_linker"
 require_relative "tome/input_validator"
+require_relative "tome/article_formatter"
 
 module Agent
   module Tome

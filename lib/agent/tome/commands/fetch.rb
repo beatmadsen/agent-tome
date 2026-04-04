@@ -10,13 +10,7 @@ module Agent
           article = Article.find_by(global_id: @global_id)
           raise NotFoundError, "Article not found: #{@global_id}" unless article
 
-          result = {
-            "global_id" => article.global_id,
-            "description" => article.description,
-            "keywords" => article.keywords.pluck(:term).sort,
-            "created_at" => article.created_at.iso8601,
-            "entries" => format_entries(article)
-          }
+          result = ArticleFormatter.summary(article, "entries" => format_entries(article))
 
           if (link = article.consolidation_as_new)
             old = link.old_article
