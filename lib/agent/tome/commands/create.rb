@@ -19,7 +19,7 @@ module Agent
               created_at: Time.now
             )
 
-            process_keywords!(article, input["keywords"] || [])
+            KeywordLinker.call(article, input["keywords"] || [])
             web_source_ids = process_web_sources!(entry, input["web_sources"] || [])
             file_source_ids = process_file_sources!(entry, input["file_sources"] || [])
             process_related_articles!(article, input["related_article_ids"] || [])
@@ -98,17 +98,6 @@ module Agent
           end
         end
 
-        def process_keywords!(article, keywords)
-          keywords.each do |kw|
-            normalized = KeywordNormalizer.call(kw)
-            keyword = Keyword.find_or_create_by!(term: normalized) do |k|
-              k.created_at = Time.now
-            end
-            ArticleKeyword.find_or_create_by!(article: article, keyword: keyword) do |ak|
-              ak.created_at = Time.now
-            end
-          end
-        end
 
         def process_web_sources!(entry, sources)
           sources.map do |src|
