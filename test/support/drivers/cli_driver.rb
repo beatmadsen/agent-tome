@@ -8,18 +8,34 @@ class CliDriver
   def initialize(db_path:, config_dir:)
     @db_path = db_path
     @config_dir = config_dir
+    setup_connection!
+  end
+
+  # Commands run in their own process, but the test still asserts on the store
+  # the same way it does under the service driver, so this process needs its
+  # own connection to the same database.
+  def setup_connection!
+    config = Agent::Tome::Config.new(config_dir: @config_dir)
+    config.load!
+    Agent::Tome::Database.connect!(config.db_path)
   end
 
   def disconnect!
-    # No-op for CLI driver: each invocation is isolated
+    Agent::Tome::Database.disconnect!
+  rescue StandardError
+    nil
   end
 
-  def create(description:, body:, keywords: [], web_sources: [], file_sources: [], related_article_ids: [])
-    input = { "description" => description, "body" => body }
-    input["keywords"] = keywords unless keywords.empty?
-    input["web_sources"] = web_sources.map(&method(:stringify_keys)) unless web_sources.empty?
-    input["file_sources"] = file_sources.map(&method(:stringify_keys)) unless file_sources.empty?
-    input["related_article_ids"] = related_article_ids unless related_article_ids.empty?
+  def create(description: nil, body: :__unset__, keywords: [], web_sources: [], file_sources: [],
+             related_article_ids: [])
+    input = build_input(
+      "description" => description,
+      "body" => (body == :__unset__ ? nil : body),
+      "keywords" => keywords,
+      "web_sources" => web_sources.map(&method(:stringify_keys)),
+      "file_sources" => file_sources.map(&method(:stringify_keys)),
+      "related_article_ids" => related_article_ids
+    )
 
     run_command("create", stdin: JSON.generate(input))
   end
@@ -56,7 +72,7 @@ class CliDriver
   end
 
   def keywords(prefix)
-    run_command("keywords", prefix)
+    prefix.nil? ? run_command("keywords") : run_command("keywords", prefix)
   end
 
   def source_search(source, system: nil)
@@ -86,8 +102,12 @@ class CliDriver
         TomeTest::Result.new(data: data, exit_code: exit_code)
       end
     rescue JSON::ParserError
-      TomeTest::Result.new(error_message: "Invalid JSON output: #{stdout}", exit_code: exit_code)
+      TomeTest::Result.new(error_message: "Invalid JSON output: #{stdout}#{stderr}", exit_code: exit_code)
     end
+  end
+
+  def build_input(hash)
+    hash.reject { |_, v| v.nil? || (v.is_a?(Array) && v.empty?) }
   end
 
   def stringify_keys(hash)

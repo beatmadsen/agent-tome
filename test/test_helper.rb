@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "agent/tome"
 
 require "minitest/autorun"
+require "minitest/mock"
 require "fileutils"
 require "tmpdir"
 require "yaml"

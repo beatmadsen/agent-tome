@@ -10,4 +10,11 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-task default: :test
+desc "Run the suite against the CLI rather than the in-process service"
+task :test_cli do
+  ENV["TOME_DRIVER"] = "cli"
+  Rake::Task[:test].reenable
+  Rake::Task[:test].invoke
+end
+
+task default: %i[test test_cli]

@@ -5,5 +5,6 @@ source "https://rubygems.org"
 gemspec
 
 gem "concurrent-ruby", "~> 1.3"
-gem "minitest", "~> 5.0"
+gem "minitest", "~> 6.0"
+gem "minitest-mock", "~> 5.27"
 gem "rake", "~> 13.0"
