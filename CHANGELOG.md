@@ -1,5 +1,21 @@
 ## [Unreleased]
 
+## [1.0.2] - 2026-09-20
+
+### Documentation
+
+- The Quick Start showed `create` returning a `global_id`. It returns
+  `article_global_id` and `entry_global_id`, so an agent written against the
+  README was reading a key that is never there.
+
+### Internal
+
+- The CLI test lane (`TOME_DRIVER=cli`) had rotted and nothing ran it. It runs
+  again, and `rake` now runs both it and the in-process lane, so the executable
+  is covered rather than only the service objects underneath it.
+- Development dependencies move to minitest 6, which extracts `minitest/mock`
+  into its own gem, plus current activerecord, activesupport and sqlite3.
+
 ## [1.0.1] - 2026-04-05
 
 ### Changed

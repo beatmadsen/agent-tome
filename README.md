@@ -17,7 +17,7 @@ On first run, a config directory is created at `~/.agent-tome/` with a SQLite da
 ```bash
 # Your agent just researched Ruby GC internals. Capture what it learned:
 echo '{"description": "Ruby GC internals", "body": "Ruby uses a generational mark-and-sweep garbage collector.", "keywords": ["ruby", "garbage-collection"]}' | agent-tome create
-# => {"global_id": "3xK9mWp", ...}
+# => {"article_global_id": "3xK9mWp", "entry_global_id": "VwY75ct", ...}
 
 # Two weeks later, a different session hits the same topic.
 # Instead of re-reading the docs, your agent checks the tome:
