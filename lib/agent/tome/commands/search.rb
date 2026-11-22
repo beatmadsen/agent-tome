@@ -33,7 +33,7 @@ module Agent
             .order("matching_keyword_count DESC")
 
           if @match == "all"
-            base = base.having("COUNT(DISTINCT article_keywords.keyword_id) = ?", keyword_ids.length)
+            base = base.having("COUNT(DISTINCT article_keywords.keyword_id) = ?", normalized_terms.uniq.length)
           end
 
           base.limit(1000)

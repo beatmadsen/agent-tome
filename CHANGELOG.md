@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+### Fixed
+
+- `search --match all` dropped keywords the tome had never seen before
+  counting, so `search ruby nosuchword --match all` returned every article
+  tagged `ruby`. It now returns nothing unless an article has every keyword.
+
 ## [1.0.2] - 2026-09-20
 
 ### Documentation

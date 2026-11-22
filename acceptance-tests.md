@@ -285,6 +285,11 @@ And in the database:
 **When** `agent-tome search` is run with no keyword arguments
 **Then** exit code is non-zero, JSON error indicating at least one keyword is required.
 
+### 4.10 Search with --match all and a keyword no article has
+**Given** Article A with keywords `["ruby", "gc"]`, and no article with keyword `"nosuchword"`
+**When** `agent-tome search ruby nosuchword --match all`
+**Then** exit code is 0 and `results` is empty: no article has every keyword.
+
 ---
 
 ## 5. `agent-tome fetch`
