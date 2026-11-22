@@ -12,6 +12,9 @@
 
 ### Fixed
 
+- The gemspec allowed sqlite3 2.0, which Active Record 8 refuses to load.
+  With sqlite3 2.0 already installed, `gem install agent-tome` succeeded
+  and every command then failed. It now requires sqlite3 2.1 or newer.
 - `search --match all` dropped keywords the tome had never seen before
   counting, so `search ruby nosuchword --match all` returned every article
   tagged `ruby`. It now returns nothing unless an article has every keyword.
@@ -35,8 +38,11 @@
 
 ### Internal
 
-- Tested against activerecord and activesupport 8.1.4.1 and sqlite3 2.10.2,
-  the newest releases. The allowed version ranges are unchanged.
+- Tested on Ruby 4.0 with the newest activerecord, activesupport (8.1.4.1)
+  and sqlite3 (2.10.2), and on Ruby 3.3 with the oldest versions the
+  gemspec allows (8.0.0 and 2.1.0).
+- Development requires activesupport 8.1.2 or newer, because older
+  releases make the parallel test run hang under minitest 6.
 
 ## [1.0.2] - 2026-09-20
 

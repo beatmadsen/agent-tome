@@ -19,6 +19,15 @@ class GemspecMetadataTest < Minitest::Test
     assert spec.required_ruby_version.satisfied_by?(Gem::Version.new("3.3.0"))
   end
 
+  # Active Record's SQLite adapter refuses sqlite3 older than 2.1, so allowing
+  # 2.0 lets the gem install and then fail on its first command.
+  def test_requires_a_sqlite3_that_active_record_will_load
+    sqlite3 = spec.runtime_dependencies.find { |d| d.name == "sqlite3" }
+
+    refute sqlite3.requirement.satisfied_by?(Gem::Version.new("2.0.2"))
+    assert sqlite3.requirement.satisfied_by?(Gem::Version.new("2.1.0"))
+  end
+
   private
 
   def spec
