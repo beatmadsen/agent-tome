@@ -54,6 +54,9 @@
 - [x] 4.7 Search results capped at 1000
 - [x] 4.8 Search result format
 - [x] 4.9 Search with no keywords
+- [x] 4.10 Search with --match all and a keyword no article has
+- [x] 4.11 Search with an unrecognised --match value
+- [x] 4.12 Search with --match and no value
 
 ## 5. `agent-tome fetch`
 - [x] 5.1 Fetch a simple article
@@ -89,10 +92,11 @@
 - [x] 7.9 Related for non-existent article
 
 ## 8. `agent-tome keywords`
-- [x] 8.1 Keywords matching a prefix
+- [x] 8.1 Keywords containing a substring
 - [x] 8.2 No matching keywords
 - [x] 8.3 Case-insensitive matching
 - [x] 8.4 No argument provided
+- [x] 8.5 Wildcard characters match literally
 
 ## 9. `agent-tome source-search`
 - [x] 9.1 Search by URL
@@ -102,6 +106,8 @@
 - [x] 9.5 No matching source
 - [x] 9.6 Output format
 - [x] 9.7 URL vs file path disambiguation
+- [x] 9.8 No argument provided
+- [x] 9.9 Empty --system value
 
 ## 10. Output & Error Conventions
 - [x] 10.1 All commands output JSON to stdout

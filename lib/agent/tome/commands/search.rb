@@ -7,8 +7,11 @@ module Agent
           @match = match
         end
 
+        MATCH_MODES = %w[any all].freeze
+
         def call
           raise ValidationError, "At least one keyword is required" if @keywords.empty?
+          raise ValidationError, "--match must be 'any' or 'all'" unless MATCH_MODES.include?(@match)
 
           normalized = @keywords.map { |kw| KeywordNormalizer.call(kw) }
           keyword_ids = Keyword.where(term: normalized).pluck(:id)

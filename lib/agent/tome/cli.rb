@@ -124,7 +124,7 @@ module Agent
 
         i = 0
         while i < @argv.length
-          if @argv[i] == "--match" && i + 1 < @argv.length
+          if @argv[i] == "--match"
             match = @argv[i + 1]
             i += 2
           else
@@ -140,9 +140,9 @@ module Agent
         source = @argv.shift
         system = nil
 
-        if @argv[0] == "--system" && @argv[1]
+        if @argv[0] == "--system"
           @argv.shift
-          system = @argv.shift
+          system = @argv.shift.to_s
         end
 
         [source, system]
@@ -155,12 +155,12 @@ module Agent
           Commands:
             create                    Create a new article (JSON via stdin)
             addend <id>               Add an addendum to an article (JSON via stdin)
-            search <keywords...>      Search articles by keywords
+            search <keywords...>      Search articles by keywords [--match any|all]
             fetch <id>                Retrieve full article content
             related <id>              Find related articles
             consolidate <id>          Merge addenda into one article (JSON via stdin)
-            keywords <prefix>         List keywords matching a prefix
-            source-search <url|path>  Find articles by source reference
+            keywords <text>           List keywords containing the text
+            source-search <url|path>  Find articles by source reference [--system <name>]
 
           Options:
             --help, -h                Show this help

@@ -10,7 +10,7 @@ module Agent
           raise ValidationError, "A prefix/substring argument is required" if @prefix.nil? || @prefix.strip.empty?
 
           terms = Keyword
-            .where("LOWER(term) LIKE ?", "%#{@prefix.downcase}%")
+            .where("LOWER(term) LIKE ? ESCAPE '\\'", "%#{Keyword.sanitize_sql_like(@prefix.downcase)}%")
             .order(:term)
             .pluck(:term)
 

@@ -208,6 +208,8 @@ Searches for articles matching the given keywords.
 - `--match all` — articles must have every specified keyword (AND). 
 - `--match any` — articles must have at least one specified keyword (OR). Default.
 
+Any other `--match` value, or `--match` with no value, is a validation error.
+
 Keywords provided by the caller are singularised and downcased before matching, using the same normalisation as storage.
 
 **Output**: Up to 1000 results, ordered by number of matching keywords descending. Each result includes:
@@ -315,11 +317,11 @@ Finds articles related to the given article through shared keywords or explicit 
 
 `shared_keywords` results are ordered by shared keyword count descending, limited to the top 100. Empty arrays are included for consistency.
 
-### `agent-tome keywords <prefix>`
+### `agent-tome keywords <text>`
 
-Lists keywords matching a prefix/substring. Lightweight output for vocabulary discovery.
+Lists keywords containing the given text anywhere (substring match, case-insensitive). Lightweight output for vocabulary discovery.
 
-**Input**: A positional argument — the prefix string.
+**Input**: A positional argument — the text to look for. `_` and `%` match literally.
 
 **Output**:
 
@@ -336,7 +338,9 @@ Finds articles that reference a given source.
 **Input**: A positional argument — a URL or file path. URLs are normalised before matching. File paths match on the path component across all systems by default.
 
 **Flags**:
-- `--system <name>` — restrict file path matching to the specified system name.
+- `--system <name>` — restrict file path matching to the specified system name. An empty name is a validation error.
+
+A missing argument is a validation error.
 
 **Output**: Array of matching articles. Each result includes `global_id`, `description`, `keywords`, and `created_at`. (No `matching_keyword_count` — source-search does not match on keywords.)
 

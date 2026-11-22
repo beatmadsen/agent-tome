@@ -290,6 +290,14 @@ And in the database:
 **When** `agent-tome search ruby nosuchword --match all`
 **Then** exit code is 0 and `results` is empty: no article has every keyword.
 
+### 4.11 Search with an unrecognised --match value
+**When** `agent-tome search ruby --match al`
+**Then** exit code is non-zero, JSON error saying `--match` must be `any` or `all`. A typo never falls back to `any`.
+
+### 4.12 Search with --match and no value
+**When** `agent-tome search ruby --match`
+**Then** exit code is non-zero, JSON error about `--match`. The flag is not treated as a keyword.
+
 ---
 
 ## 5. `agent-tome fetch`
@@ -452,10 +460,10 @@ And in the database:
 
 ## 8. `agent-tome keywords`
 
-### 8.1 Keywords matching a prefix
+### 8.1 Keywords containing a substring
 **Given** keywords exist: `"ruby"`, `"rust"`, `"python"`, `"runtime"`, `"guru"`
 **When** `agent-tome keywords ru`
-**Then** exit code is 0, output includes `"ruby"`, `"rust"`, `"runtime"`. Whether `"guru"` is included depends on whether matching is prefix-only or substring. (To be decided during implementation — update this test accordingly.)
+**Then** exit code is 0, output includes `"ruby"`, `"rust"`, `"runtime"` and `"guru"` (matching is by substring, not prefix), and not `"python"`.
 
 ### 8.2 No matching keywords
 **When** `agent-tome keywords zzz`
@@ -469,6 +477,13 @@ And in the database:
 ### 8.4 No argument provided
 **When** `agent-tome keywords` is run with no argument
 **Then** exit code is non-zero, JSON error indicating a prefix/substring argument is required.
+
+### 8.5 Wildcard characters match literally
+**Given** keywords exist: `"snake_case"`, `"100%"`, `"plain"`
+**When** `agent-tome keywords _`
+**Then** output is exactly `["snake_case"]`.
+**When** `agent-tome keywords %`
+**Then** output is exactly `["100%"]`. Neither character acts as a wildcard.
 
 ---
 
@@ -510,6 +525,14 @@ And in the database:
 **When** `agent-tome source-search /home/user/doc.pdf`
 **Then** the argument is treated as a file path (matched against file sources).
 The heuristic is: arguments beginning with `http://` or `https://` are URLs; all others are file paths.
+
+### 9.8 No argument provided
+**When** `agent-tome source-search` is run with no argument
+**Then** exit code is non-zero, JSON error indicating a URL or file path argument is required.
+
+### 9.9 Empty --system value
+**When** `agent-tome source-search /home/user/doc.pdf --system ""` (or `--system` with nothing after it)
+**Then** exit code is non-zero, JSON error about `--system`. It does not search for a system with an empty name.
 
 ---
 

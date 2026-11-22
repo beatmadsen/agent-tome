@@ -52,7 +52,7 @@ class CliDriver
   end
 
   def search(keywords, match: "any")
-    args = keywords + (match == "any" ? [] : ["--match", match])
+    args = keywords + (match == "any" ? [] : ["--match", match].compact)
     run_command("search", *args)
   end
 
@@ -76,8 +76,8 @@ class CliDriver
   end
 
   def source_search(source, system: nil)
-    args = [source]
-    args += ["--system", system] if system
+    args = [source].compact
+    args += ["--system", system] unless system.nil?
     run_command("source-search", *args)
   end
 

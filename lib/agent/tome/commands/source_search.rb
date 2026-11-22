@@ -8,6 +8,9 @@ module Agent
         end
 
         def call
+          raise ValidationError, "A URL or file path argument is required" if blank?(@source)
+          raise ValidationError, "--system needs a system name" if !@system.nil? && blank?(@system)
+
           articles = if url?(@source)
             search_by_url
           else
@@ -20,6 +23,10 @@ module Agent
         end
 
         private
+
+        def blank?(str)
+          str.nil? || str.strip.empty?
+        end
 
         def url?(str)
           str.start_with?("http://", "https://")
