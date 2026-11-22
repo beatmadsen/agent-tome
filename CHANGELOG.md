@@ -1,10 +1,42 @@
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-22
+
+### Changed
+
+- Requires Ruby 3.3 or newer. Ruby 3.2 no longer gets security fixes, so
+  `gem install` on it stays on 1.0.2.
+- Arguments that used to be guessed at are now errors (see Fixed). A script
+  that passed `--match` with a misspelt value, or `source-search` with an
+  empty `--system`, will now get a non-zero exit instead of results.
+
 ### Fixed
 
 - `search --match all` dropped keywords the tome had never seen before
   counting, so `search ruby nosuchword --match all` returned every article
   tagged `ruby`. It now returns nothing unless an article has every keyword.
+- `search --match` with a value other than `any` or `all` searched with
+  `any`, so a typo for `all` gave the broadest results instead of an error.
+  A `--match` with nothing after it was treated as a keyword. Both are now
+  rejected.
+- `keywords _` and `keywords %` listed every keyword. Both characters now
+  match literally.
+- `source-search` with no argument answered with an internal Ruby error
+  message. It now says a URL or file path is required. An empty
+  `--system` value is rejected instead of searching for a machine with no
+  name.
+
+### Documentation
+
+- The README and `--help` said `keywords` matches a prefix. It matches
+  anywhere in the keyword, so `keywords ru` also finds `guru`.
+- The README now mentions `--system` and the `AGENT_TOME_CONFIG_DIR`
+  variable.
+
+### Internal
+
+- Tested against activerecord and activesupport 8.1.4.1 and sqlite3 2.10.2,
+  the newest releases. The allowed version ranges are unchanged.
 
 ## [1.0.2] - 2026-09-20
 
@@ -51,6 +83,8 @@
 - **CLI**: `agent-tome` executable with JSON stdin/stdout interface, exit code 0 on success and non-zero on error.
 - **Claude Code skills**: Companion `tome-lookup` and `tome-capture` skills for AI agent integration.
 
-[Unreleased]: https://github.com/beatmadsen/agent-tome/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/beatmadsen/agent-tome/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/beatmadsen/agent-tome/compare/v1.0.2...v1.1.0
+[1.0.2]: https://github.com/beatmadsen/agent-tome/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/beatmadsen/agent-tome/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/beatmadsen/agent-tome/releases/tag/v1.0.0

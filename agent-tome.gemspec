@@ -12,12 +12,12 @@ Gem::Specification.new do |spec|
   spec.description = "A knowledge base that grows with every session your AI agent runs. " \
                      "Findings accumulate in a persistent, append-only store, so your agent " \
                      "can build on what it already knows instead of starting from scratch. " \
-                     "Keyword-indexed and searchable from any CLI."
+                     "Keyword-indexed, JSON in and JSON out, and callable by any agent " \
+                     "that can run a shell command."
   spec.homepage = "https://github.com/beatmadsen/agent-tome"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.2"
+  spec.required_ruby_version = ">= 3.3"
 
-  spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
     ls.readlines("\x0", chomp: true).reject do |f|
       (f == gemspec) ||
-        f.start_with?(*%w[bin/ test/ ralph/ .]) ||
+        f.start_with?(*%w[bin/ test/ .]) ||
           f.match?(/\A(Gemfile|Rakefile|acceptance-tests\.md|agent-tome-requirements\.md)\z/)
     end
   end

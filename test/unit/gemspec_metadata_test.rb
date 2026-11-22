@@ -8,9 +8,15 @@ class GemspecMetadataTest < Minitest::Test
   end
 
   def test_points_at_the_repository_for_source_changelog_and_issues
-    %w[homepage_uri source_code_uri changelog_uri bug_tracker_uri documentation_uri].each do |key|
+    assert_match %r{\Ahttps://github\.com/beatmadsen/agent-tome}, spec.homepage
+    %w[source_code_uri changelog_uri bug_tracker_uri documentation_uri].each do |key|
       assert_match %r{\Ahttps://github\.com/beatmadsen/agent-tome}, spec.metadata[key].to_s, key
     end
+  end
+
+  def test_refuses_to_install_on_ruby_that_no_longer_gets_security_fixes
+    refute spec.required_ruby_version.satisfied_by?(Gem::Version.new("3.2.11"))
+    assert spec.required_ruby_version.satisfied_by?(Gem::Version.new("3.3.0"))
   end
 
   private

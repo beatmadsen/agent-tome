@@ -10,7 +10,7 @@ AI agents are brilliant researchers, and terrible at remembering what they found
 gem install agent-tome
 ```
 
-On first run, a config directory is created at `~/.agent-tome/` with a SQLite database at `~/.agent-tome/tome.db`. To use a different database location, edit `~/.agent-tome/config.yml` and change `db_path`.
+On first run, a config directory is created at `~/.agent-tome/` with a SQLite database at `~/.agent-tome/tome.db`. To use a different database location, edit `~/.agent-tome/config.yml` and change `db_path`. To keep the config somewhere else entirely, for example a separate tome per project, set `AGENT_TOME_CONFIG_DIR` to another directory.
 
 ## Quick Start
 
@@ -51,12 +51,12 @@ The original entries are preserved. The article ID still works. Keywords and sou
 |---------|-------------|
 | `agent-tome create` | Create a new article with its first entry (JSON via stdin) |
 | `agent-tome addend <id>` | Add an addendum to an existing article (JSON via stdin) |
-| `agent-tome search <keywords...>` | Search articles by keywords (`--match any` or `--match all`) |
+| `agent-tome search <keywords...>` | Search articles by keywords (`--match any`, the default, or `--match all`) |
 | `agent-tome fetch <id>` | Retrieve full article content with all entries and sources |
 | `agent-tome related <id>` | Find articles related through shared keywords or references |
 | `agent-tome consolidate <id>` | Merge all addenda into a single consolidated article (JSON via stdin) |
-| `agent-tome keywords <prefix>` | List keywords matching a prefix for vocabulary discovery |
-| `agent-tome source-search <url-or-path>` | Find articles referencing a given source |
+| `agent-tome keywords <text>` | List keywords containing the text, for vocabulary discovery |
+| `agent-tome source-search <url-or-path>` | Find articles referencing a given source (`--system <name>` limits file paths to one machine) |
 
 ## Agent Integration
 
